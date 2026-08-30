@@ -1,0 +1,16 @@
+{
+  "$schema": "https://raw.githubusercontent.com/can1357/oh-my-pi/main/packages/coding-agent/src/config/mcp-schema.json",
+  "mcpServers": {
+    "gitnexus": {
+      "type": "stdio",
+      "command": "gitnexus",
+      "args": ["mcp"],
+      "env": {
+        "DO_NOT_TRACK": "1",
+        "GITNEXUS_MCP_READ_ONLY": "1",
+        "SCARF_ANALYTICS": "false"
+      },
+      "timeout": 120000
+    }
+  }
+}

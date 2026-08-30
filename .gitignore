@@ -11,6 +11,17 @@
 !/agent/RULES.md
 !/agent/coding-rules.md
 !/agent/response-rules-reminder.md
+!/agent/mcp.json
+
+!/agent/commands/
+/agent/commands/*
+!/agent/commands/build-feature.md
+!/agent/commands/build-ui.md
+!/agent/commands/gitnexus-analyze.md
+!/agent/commands/kotlin-quality.md
+!/agent/commands/omp-health.md
+!/agent/commands/pr-review.md
+!/agent/commands/simplify-code.md
 
 !/agent/skills/
 /agent/skills/*
