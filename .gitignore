@@ -1,0 +1,25 @@
+# Deny by default. This repository is an explicit OMP configuration allowlist.
+/*
+
+!/.gitignore
+!/README.md
+!/THIRD_PARTY_NOTICES.md
+
+!/agent/
+/agent/*
+!/agent/config.yml
+!/agent/RULES.md
+!/agent/coding-rules.md
+!/agent/response-rules-reminder.md
+
+!/agent/skills/
+/agent/skills/*
+!/agent/skills/*/
+/agent/skills/*/*
+!/agent/skills/*/SKILL.md
+
+!/agent/managed-skills/
+/agent/managed-skills/*
+!/agent/managed-skills/*/
+/agent/managed-skills/*/*
+!/agent/managed-skills/*/SKILL.md
