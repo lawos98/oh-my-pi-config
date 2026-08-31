@@ -15,12 +15,9 @@
 
 !/agent/commands/
 /agent/commands/*
-!/agent/commands/build-feature.md
-!/agent/commands/build-ui.md
-!/agent/commands/gitnexus-analyze.md
-!/agent/commands/kotlin-quality.md
-!/agent/commands/omp-health.md
+!/agent/commands/create-skill.md
 !/agent/commands/pr-review.md
+!/agent/commands/self-review.md
 !/agent/commands/simplify-code.md
 
 !/agent/skills/

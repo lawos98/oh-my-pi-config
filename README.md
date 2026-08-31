@@ -61,8 +61,9 @@ Install these tools before you continue:
 - Oh My Pi
 - Git
 - An authenticated GitHub account that can read this private repository
+- Bash and GNU coreutils
 
-The GitNexus MCP and `/gitnexus-analyze` command also require GitNexus and Node.js `^22.18.0 || >=24.11.0`. Its documented install uses Bun, `curl`, and `sha512sum`. The `/pr-review` command requires an authenticated GitHub CLI. The related sections give exact commands.
+The GitNexus MCP requires GitNexus and Node.js `^22.18.0 || >=24.11.0`. Its documented install uses Bun, `curl`, and `sha512sum`. The `/pr-review` command requires an authenticated GitHub CLI. The related sections give exact commands.
 
 Check OMP:
 
@@ -90,6 +91,10 @@ The copy steps overwrite files with the same names. They do not delete other ski
   set -eu
   umask 077
   test -n "$HOME"
+  if [ -e "$HOME/.omp/agent" ] || [ -L "$HOME/.omp/agent" ]; then
+    test -d "$HOME/.omp/agent"
+    test ! -L "$HOME/.omp/agent"
+  fi
   backup="$HOME/.omp-backups/omp-$(date +%Y%m%d-%H%M%S)"
   mkdir -p "$HOME/.omp-backups"
   mkdir "$backup"
@@ -105,7 +110,7 @@ The copy steps overwrite files with the same names. They do not delete other ski
     skills \
     managed-skills
   do
-    if [ -e "$HOME/.omp/agent/$path" ]; then
+    if [ -e "$HOME/.omp/agent/$path" ] || [ -L "$HOME/.omp/agent/$path" ]; then
       cp -a "$HOME/.omp/agent/$path" "$backup/agent/"
     fi
   done
@@ -118,18 +123,57 @@ The copy steps overwrite files with the same names. They do not delete other ski
 ### 3. Install the rules, commands, skills, and MCP definition
 
 ```bash
-mkdir -p "$HOME/.omp/agent/commands"
-mkdir -p "$HOME/.omp/agent/skills"
-mkdir -p "$HOME/.omp/agent/managed-skills"
+(
+  set -euo pipefail
+  test -n "$HOME"
+  mkdir -p "$HOME/.omp/agent"
+  test -d "$HOME/.omp/agent"
+  test ! -L "$HOME/.omp/agent"
 
-cp agent/RULES.md "$HOME/.omp/agent/RULES.md"
-cp agent/coding-rules.md "$HOME/.omp/agent/coding-rules.md"
-cp agent/response-rules-reminder.md "$HOME/.omp/agent/response-rules-reminder.md"
-cp agent/mcp.json "$HOME/.omp/agent/mcp.json"
-cp -a agent/commands/. "$HOME/.omp/agent/commands/"
-cp -a agent/skills/. "$HOME/.omp/agent/skills/"
-cp -a agent/managed-skills/. "$HOME/.omp/agent/managed-skills/"
-chmod 600 "$HOME/.omp/agent/mcp.json"
+  for path in commands skills managed-skills; do
+    mkdir -p "$HOME/.omp/agent/$path"
+    test -d "$HOME/.omp/agent/$path"
+    test ! -L "$HOME/.omp/agent/$path"
+  done
+
+  for source in \
+    agent/RULES.md \
+    agent/coding-rules.md \
+    agent/response-rules-reminder.md \
+    agent/mcp.json \
+    agent/commands/create-skill.md \
+    agent/commands/pr-review.md \
+    agent/commands/self-review.md \
+    agent/commands/simplify-code.md
+  do
+    test -f "$source"
+    test ! -L "$source"
+    destination="$HOME/.omp/agent/${source#agent/}"
+    rm -rf -- "$destination"
+    cp "$source" "$destination"
+  done
+
+  for category in skills managed-skills; do
+    git ls-files -z -- ":(glob)agent/$category/*/SKILL.md" |
+      while IFS= read -r -d '' source; do
+        test -f "$source"
+        test ! -L "$source"
+        destination="$HOME/.omp/agent/${source#agent/}"
+        skill_dir="${destination%/SKILL.md}"
+        rm -rf -- "$skill_dir"
+        mkdir -p "$skill_dir"
+        cp "$source" "$destination"
+      done
+  done
+  rm -rf -- \
+    "$HOME/.omp/agent/commands/build-feature.md" \
+    "$HOME/.omp/agent/commands/build-ui.md" \
+    "$HOME/.omp/agent/commands/gitnexus-analyze.md" \
+    "$HOME/.omp/agent/commands/kotlin-quality.md" \
+    "$HOME/.omp/agent/commands/omp-health.md"
+
+  chmod 600 "$HOME/.omp/agent/mcp.json"
+)
 ```
 
 ### 4. Install the configuration
@@ -137,8 +181,14 @@ chmod 600 "$HOME/.omp/agent/mcp.json"
 Review `agent/config.yml` first. Pay special attention to model names, `approvalMode`, memory, and automatic learning.
 
 ```bash
-cp agent/config.yml "$HOME/.omp/agent/config.yml"
-chmod 600 "$HOME/.omp/agent/config.yml"
+(
+  set -eu
+  test -f agent/config.yml
+  test ! -L agent/config.yml
+  rm -rf -- "$HOME/.omp/agent/config.yml"
+  cp agent/config.yml "$HOME/.omp/agent/config.yml"
+  chmod 600 "$HOME/.omp/agent/config.yml"
+)
 ```
 
 If you do not want the shared configuration, skip this step.
@@ -169,7 +219,7 @@ omp read skill://api-robustness/SKILL.md
 gitnexus --version
 ```
 
-Each `omp read` command must return the selected skill. If a skill is missing, check its directory name and `SKILL.md` frontmatter. Start OMP and run `/omp-health` to inspect command, skill, plugin, and MCP discovery without changing the installation.
+Each `omp read` command must return the selected skill. If a skill is missing, check its directory name and `SKILL.md` frontmatter. Start a new OMP session and confirm that command completion lists `/self-review` and `/create-skill`.
 
 ## Optional plugins
 
@@ -253,13 +303,12 @@ Files under `agent/commands/` become slash commands in a new OMP session.
 
 | Command | Purpose | Extra requirement |
 |---|---|---|
-| `/build-feature` | Implements a complete feature with the smallest repository-compatible design and end-to-end verification. | None |
-| `/build-ui` | Implements and browser-verifies a complete accessible UI. | The optional `frontend-design` plugin improves visual guidance. |
-| `/gitnexus-analyze` | Creates a local, index-only GitNexus graph and reports status. | GitNexus |
-| `/kotlin-quality` | Runs the repository's existing narrowest ktlint and detekt Gradle tasks for changed Kotlin. | A Kotlin Gradle repository |
-| `/omp-health` | Audits the active OMP configuration without changing it or reading credentials. | None |
+| `/create-skill` | Creates one validated managed skill without duplicating existing capabilities. | Automatic learning enabled |
 | `/pr-review` | Reviews the current GitHub pull request and drafts line comments after approval. | GitHub CLI authentication |
+| `/self-review` | Reviews every change since `main` for evidence-backed correctness, security, architecture, and maintainability defects. | A Git repository with local `main` or `origin/main` |
 | `/simplify-code` | Removes accidental complexity while preserving observable behavior. | None |
+
+Do not use `/self-review` or `/create-skill` from an untrusted repository or directory. OMP loads project instructions before it expands a slash command, so verifying the command cannot neutralize hostile project context. In a trusted repository, run the built-in `/extensions` inspector and require the active entry to show `Origin: via OMP (User)` with the exact path `~/.omp/agent/commands/<name>.md`; stop if it does not. A matching description is not proof of origin. See [OMP slash-command precedence](https://github.com/can1357/oh-my-pi/blob/main/docs/slash-command-internals.md#provider-specific-source-paths-and-local-precedence).
 
 ## GitNexus MCP
 
@@ -399,10 +448,19 @@ Do not copy your complete `~/.omp` directory into Git. Use an explicit allowlist
 Pull the repository, create a new backup, and repeat the copy steps:
 
 ```bash
-git pull --ff-only
+(
+  set -eu
+  root="$(git rev-parse --show-toplevel)"
+  status="$(git -C "$root" -c core.fsmonitor=false --no-pager status --porcelain=v1 --untracked-files=all --ignore-submodules=none)"
+  test -z "$status"
+  before="$(git -C "$root" rev-parse HEAD)"
+  git -C "$root" pull --ff-only
+  git -C "$root" -c core.fsmonitor=false --no-pager diff --no-relative --ignore-submodules=none --no-ext-diff --no-textconv --summary "$before" HEAD
+  git -C "$root" -c core.fsmonitor=false --no-pager diff --no-relative --ignore-submodules=none --no-ext-diff --no-textconv "$before" HEAD
+)
 ```
 
-Review changed skills before you overwrite the installed copy.
+Review the complete pulled diff before you create a backup or overwrite the installed copy: commands, rules, configuration, MCP definitions, skills, file modes, and symlink targets. Stop if any source, intent, or change is unclear.
 
 ## Restore a backup
 
