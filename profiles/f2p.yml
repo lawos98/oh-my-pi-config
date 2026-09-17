@@ -1,0 +1,11 @@
+modelRoles:
+  default: "lm-studio/qwen/qwen3.8-27b:auto"
+  plan: "lm-studio/qwen/qwen3.8-27b:max"
+  slow: "lm-studio/qwen/qwen3.8-27b:max"
+  task: "lm-studio/qwen/qwen3.8-27b:high"
+  designer: "lm-studio/qwen/qwen3.8-27b:high"
+  advisor: "lm-studio/qwen/qwen3.8-27b:medium"
+  vision: "lm-studio/qwen/qwen3.8-27b:medium"
+  smol: "lm-studio/qwen/qwen3.8-27b:off"
+  commit: "lm-studio/qwen/qwen3.8-27b:minimal"
+  tiny: "lm-studio/qwen/qwen3.8-27b:off"

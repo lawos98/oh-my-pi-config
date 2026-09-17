@@ -1,0 +1,6 @@
+{
+  "verifier": {
+    "provider": "openai-codex",
+    "id": "gpt-5.6-luna"
+  }
+}

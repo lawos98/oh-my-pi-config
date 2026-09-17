@@ -1,11 +1,9 @@
 ---
 name: test-driven-development
 description: >-
-  Enforce strict Test-Driven Development with Red-Green-Refactor cycle. Use when
-  implementing new features, fixing bugs, adding business logic, or any code change
-  that affects behavior. Ensures no production code is written without a failing test
-  first. Triggers: tdd, test first, red green refactor, write test before code,
-  test driven, failing test first.
+  Use only when the user explicitly requests TDD/test-first development or the
+  repository explicitly requires TDD. Within that scope, enforce strict
+  Red-Green-Refactor: no production code without a failing test first.
 ---
 
 # Test-Driven Development (TDD)
@@ -18,7 +16,11 @@ NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST
 
 If you don't have a failing test, you cannot write production code.
 
-## When TDD Applies (MANDATORY)
+## When TDD Applies
+
+Apply this skill only when the user explicitly requests TDD/test-first development
+or the repository explicitly requires TDD. The Iron Law and strict
+Red-Green-Refactor cycle are mandatory within that scope, including:
 
 - New functions or methods
 - API endpoints
