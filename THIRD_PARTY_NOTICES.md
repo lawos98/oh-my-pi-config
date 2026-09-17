@@ -2,7 +2,7 @@
 
 This repository contains adapted guidance from several external projects. It does not apply one license to the complete repository.
 
-Keep the source references and license notices in each skill. If you make this repository public, review every file again and include the complete required license texts.
+Keep the source references and license notices in each skill. This repository is public. The unresolved provenance concerns below predate this update; they are not a claim of redistribution clearance.
 
 ## Ponytail
 
@@ -90,4 +90,46 @@ The local skill points to the floating `main` branch. It does not record an immu
 
 ## Remaining skills
 
-Several remaining skills were created or merged locally and do not contain complete provenance metadata. The private repository keeps them as configuration data. Do not publish or sublicense them as a single licensed work until their provenance is documented.
+Several existing skills were created or merged locally and do not contain complete provenance metadata. Do not sublicense them as a single licensed work. New local skills without sufficient source and license information are excluded from this sync.
+
+## Documentation and ADRs
+
+File: `agent/skills/documentation-and-adrs/SKILL.md`
+
+Source: <https://github.com/addyosmani/agent-skills/blob/0d52faf08da5a706616e7b1ae05226940c387ad1/skills/documentation-and-adrs/SKILL.md>
+
+Copyright (c) 2025 Addy Osmani.
+
+License: MIT. The permission notice below applies to this file.
+
+## Humanizer
+
+File: `agent/skills/humanizer/SKILL.md`
+
+Source: <https://github.com/blader/humanizer/tree/e2e92e7b4b8229253ed5c8e81dc65463fdeddda5>
+
+Copyright (c) 2025 Siqi Chen.
+
+License: MIT. The permission notice below applies to this file.
+
+This documentation-only adaptation preserves technical facts and requires explicit invocation. It excludes upstream CLI and plugin files.
+
+## MIT permission notice for the additions above
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

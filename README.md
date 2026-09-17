@@ -1,8 +1,8 @@
 # Oh My Pi configuration
 
-This private repository contains a sanitized copy of my Oh My Pi configuration.
+This public repository contains a sanitized copy of my Oh My Pi configuration.
 
-The snapshot was tested with OMP `18.0.11`. It contains configuration, global rules, commands, skills, and a GitNexus MCP definition with a read-only tool allowlist. It does not contain credentials, authenticated or organization-specific MCP servers, plugin runtime state, logs, sessions, databases, caches, or machine-specific paths.
+The source installation uses OMP `18.2.4`. The snapshot contains configuration, model overlays, global rules, commands, skills, and a GitNexus MCP definition with a read-only tool allowlist. It does not contain credentials, authenticated or organization-specific MCP servers, plugin runtime state, logs, sessions, databases, caches, or machine-specific paths.
 
 ## Important warning
 
@@ -15,19 +15,19 @@ tools:
 
 This mode approves tool calls without an interactive confirmation. Review the complete configuration before you install it. Use a stricter approval mode if you do not want this behavior.
 
-The configuration also selects OpenAI Codex model names. Change these names if your account does not provide the same models.
+The base configuration selects GitHub Copilot and OpenAI Codex models. Authenticate the required providers separately on each machine. Change model names if your account does not provide them.
 
-The configuration enables local memory and automatic learning:
+The configuration disables local memory and automatic learning:
 
 ```yaml
 memory:
-  backend: local
+  backend: "off"
 autolearn:
-  enabled: true
-  autoContinue: true
+  enabled: false
+  autoContinue: false
 ```
 
-Local memory can summarize saved session history with the configured remote model. Automatic learning can write durable lessons and managed skills. Set `memory.backend` to `off` and both `autolearn` values to `false` if session history must not be processed.
+If you enable these features, local memory can send saved session history to the configured remote model. Automatic learning can write durable lessons and managed skills.
 
 The reusable configuration does not include automatic QA reporting consent. Each installation must make that decision separately.
 
@@ -36,6 +36,7 @@ The reusable configuration does not include automatic QA reporting consent. Each
 ```text
 .
 ├── agent/
+│   ├── behavior-control/config.json
 │   ├── commands/
 │   │   └── <command>.md
 │   ├── managed-skills/
@@ -47,6 +48,11 @@ The reusable configuration does not include automatic QA reporting consent. Each
 │   ├── RULES.md
 │   ├── coding-rules.md
 │   └── response-rules-reminder.md
+├── profiles/
+│   ├── f2p.yml
+│   ├── p2w.yml
+│   ├── p2w-codex.yml
+│   └── p2w-codex-astra.yml
 ├── .gitignore
 ├── README.md
 └── THIRD_PARTY_NOTICES.md
@@ -60,8 +66,9 @@ Install these tools before you continue:
 
 - Oh My Pi
 - Git
-- An authenticated GitHub account that can read this private repository
-- Bash and GNU coreutils
+- Provider accounts with access to the configured models
+- Bash and GNU coreutils (`sha512sum` is needed by the GitNexus procedure)
+- A Nerd Font configured in your terminal for the shared symbol and status-line settings
 
 The GitNexus MCP requires GitNexus and Node.js `^22.18.0 || >=24.11.0`. Its documented install uses Bun, `curl`, and `sha512sum`. The `/pr-review` command requires an authenticated GitHub CLI. The related sections give exact commands.
 
@@ -71,26 +78,29 @@ Check OMP:
 omp --version
 ```
 
-This snapshot uses OMP `18.0.11`. Other versions are not verified by this repository.
+Use OMP `18.2.4` to match the source installation. This snapshot does not pin provider-side model availability or reproduce credentials.
 
 ## Installation
 
 ### 1. Clone the repository
 
 ```bash
-git clone git@github.com:lawos98/oh-my-pi-config.git
+git clone https://github.com/lawos98/oh-my-pi-config.git
 cd oh-my-pi-config
 ```
 
 ### 2. Back up the current OMP files
 
-The copy steps overwrite files with the same names. They do not delete other skills.
+Run the following blocks in Bash, from this checkout. The copy steps overwrite matching files and remove two retired skills. They preserve unrelated skills and model overlays. Stop OMP before installing or restoring files.
+
+The MCP copy replaces the destination MCP file with the public GitNexus-only definition. Back up private integrations and merge them locally afterward; never commit them here.
 
 ```bash
 (
   set -eu
   umask 077
   test -n "$HOME"
+  test ! -L "$HOME/.omp"
   if [ -e "$HOME/.omp/agent" ] || [ -L "$HOME/.omp/agent" ]; then
     test -d "$HOME/.omp/agent"
     test ! -L "$HOME/.omp/agent"
@@ -106,6 +116,7 @@ The copy steps overwrite files with the same names. They do not delete other ski
     RULES.md \
     coding-rules.md \
     response-rules-reminder.md \
+    behavior-control \
     commands \
     skills \
     managed-skills
@@ -114,8 +125,15 @@ The copy steps overwrite files with the same names. They do not delete other ski
       cp -a "$HOME/.omp/agent/$path" "$backup/agent/"
     fi
   done
+  mkdir "$backup/profiles"
+  test ! -L "$HOME/.omp/profiles"
+  for name in f2p p2w p2w-codex p2w-codex-astra; do
+    if [ -e "$HOME/.omp/profiles/$name.yml" ] || [ -L "$HOME/.omp/profiles/$name.yml" ]; then
+      cp -a "$HOME/.omp/profiles/$name.yml" "$backup/profiles/"
+    fi
+  done
 
-  printf 'omp-config-v1\n' > "$backup/FORMAT"
+  printf 'omp-config-v2\n' > "$backup/FORMAT"
   printf 'Backup: %s\n' "$backup"
 )
 ```
@@ -126,11 +144,12 @@ The copy steps overwrite files with the same names. They do not delete other ski
 (
   set -euo pipefail
   test -n "$HOME"
+  test ! -L "$HOME/.omp"
   mkdir -p "$HOME/.omp/agent"
   test -d "$HOME/.omp/agent"
   test ! -L "$HOME/.omp/agent"
 
-  for path in commands skills managed-skills; do
+  for path in commands skills managed-skills behavior-control; do
     mkdir -p "$HOME/.omp/agent/$path"
     test -d "$HOME/.omp/agent/$path"
     test ! -L "$HOME/.omp/agent/$path"
@@ -141,6 +160,7 @@ The copy steps overwrite files with the same names. They do not delete other ski
     agent/coding-rules.md \
     agent/response-rules-reminder.md \
     agent/mcp.json \
+    agent/behavior-control/config.json \
     agent/commands/create-skill.md \
     agent/commands/pr-review.md \
     agent/commands/self-review.md \
@@ -170,9 +190,12 @@ The copy steps overwrite files with the same names. They do not delete other ski
     "$HOME/.omp/agent/commands/build-ui.md" \
     "$HOME/.omp/agent/commands/gitnexus-analyze.md" \
     "$HOME/.omp/agent/commands/kotlin-quality.md" \
-    "$HOME/.omp/agent/commands/omp-health.md"
+    "$HOME/.omp/agent/commands/omp-health.md" \
+    "$HOME/.omp/agent/skills/auth-patterns" \
+    "$HOME/.omp/agent/skills/kotlin-intellij-plugin-dev"
 
   chmod 600 "$HOME/.omp/agent/mcp.json"
+  chmod 600 "$HOME/.omp/agent/behavior-control/config.json"
 )
 ```
 
@@ -183,11 +206,24 @@ Review `agent/config.yml` first. Pay special attention to model names, `approval
 ```bash
 (
   set -eu
+  test -n "$HOME"
+  test ! -L "$HOME/.omp"
+  test -d "$HOME/.omp/agent"
+  test ! -L "$HOME/.omp/agent"
   test -f agent/config.yml
   test ! -L agent/config.yml
   rm -rf -- "$HOME/.omp/agent/config.yml"
   cp agent/config.yml "$HOME/.omp/agent/config.yml"
   chmod 600 "$HOME/.omp/agent/config.yml"
+  mkdir -p "$HOME/.omp/profiles"
+  test ! -L "$HOME/.omp/profiles"
+  for name in f2p p2w p2w-codex p2w-codex-astra; do
+    test -f "profiles/$name.yml"
+    test ! -L "profiles/$name.yml"
+    rm -f -- "$HOME/.omp/profiles/$name.yml"
+    cp "profiles/$name.yml" "$HOME/.omp/profiles/$name.yml"
+    chmod 600 "$HOME/.omp/profiles/$name.yml"
+  done
 )
 ```
 
@@ -206,6 +242,33 @@ Start a new process after you copy the files. A new process reloads commands, sk
 ```bash
 omp
 ```
+
+### Model overlays
+
+These files contain model choices, not credentials. They are `--config` overlays, **not** OMP's isolated `--profile` directories.
+
+| Overlay | Requirements |
+|---|---|
+| `p2w.yml` | GitHub Copilot access to the configured Luna models |
+| `p2w-codex.yml` | OpenAI Codex access to the configured Luna models |
+| `p2w-codex-astra.yml` | OpenAI Codex access to Astra and Luna models |
+| `f2p.yml` | LM Studio running with the configured Qwen model loaded; configure its connection locally |
+
+For example, select the Astra overlay after installation:
+
+```bash
+omp --config "$HOME/.omp/profiles/p2w-codex-astra.yml"
+```
+
+Or load both files without installing the base configuration:
+
+```bash
+omp --config "$PWD/agent/config.yml" --config "$PWD/profiles/p2w-codex-astra.yml"
+```
+
+Later overlays take precedence. Shell aliases are not copied. See [OMP configuration overlays](https://github.com/can1357/oh-my-pi/blob/main/docs/settings.md).
+
+`agent/behavior-control/config.json` selects the behavior-control verifier model. It requires the optional `pi-behavior-control` plugin and OpenAI Codex access independently of the selected overlay.
 
 ## Verification
 
@@ -279,21 +342,22 @@ Use `/reload-plugins` after a skill, command, agent, or MCP-only plugin change. 
 | Setting | Purpose |
 |---|---|
 | `async.enabled` | Enables background work. |
-| `async.maxJobs: 4` | Limits concurrent background jobs. |
-| `task.eager: preferred` | Prefers early task execution. |
+| `async.maxJobs: 8` | Limits concurrent background jobs. |
+| `task.eager: default` | Uses the default task eagerness. |
 | `task.batch: true` | Enables batched subagent tasks. |
-| `task.isolation.mode: rcopy` | Uses repository-copy isolation for delegated work. |
-| `task.isolation.merge: patch` | Applies isolated changes as patches. |
-| `task.maxRecursionDepth: 3` | Limits nested task delegation. |
+| `task.isolation.enabled: false` | Disables task isolation; delegated edits can share the working tree. |
+| `task.isolation.merge: patch` | Selects patch merging when isolation is enabled. |
+| `task.maxConcurrency: 4` | Limits concurrent delegated tasks. |
+| `task.maxRecursionDepth: 1` | Limits nested task delegation. |
 | `compaction.enabled` | Enables context compaction. |
 | `compaction.midTurnEnabled` | Allows compaction during a turn. |
 | `skills.enabled` | Enables native OMP skill discovery. |
 | `modelRoles` | Selects default, fast, task, plan, and slow models. |
 | `cycleOrder` | Defines the model-switch order. |
 | `tools.approvalMode: yolo` | Approves tool calls without an interactive prompt. |
-| `memory.backend: local` | Stores memory locally but can send saved session history to a configured remote model for summarization. |
-| `autolearn.enabled` | Enables durable learning that can write lessons and managed skills. |
-| `autolearn.autoContinue` | Continues automatically after a learning write. |
+| `memory.backend: off` | Disables local memory. |
+| `autolearn.enabled: false` | Disables automatic learning. |
+| `autolearn.autoContinue: false` | Disables automatic continuation after learning writes. |
 | `edit.mode: hashline` | Uses line-anchored hashline edits. |
 | `security.enabled` | Enables OMP security features. |
 
@@ -373,13 +437,11 @@ Indexing creates local generated state under `.gitnexus/`, updates the global re
 | Skill | Purpose |
 |---|---|
 | `api-robustness` | Validates API input, protects internal errors, and defines atomic idempotency behavior. |
-| `auth-patterns` | Covers authentication, authorization, password storage, sessions, tokens, CSRF, CORS, and secrets. |
 | `database-architect` | Designs MongoDB schemas, indexes, migrations, and data-layer boundaries. |
 | `mongodb-optimizer` | Optimizes MongoDB queries, aggregation pipelines, indexes, and connection pools. |
 | `kotlin-spring-backend` | Guides Kotlin Spring Boot implementation, testing, operations, clients, and persistence. |
 | `reactive-kotlin` | Covers coroutines, Flow, WebFlux, cancellation, backpressure, and safe retries. |
 | `kotlin-quality-gates` | Applies repository-specific ktlint, detekt, Gradle, and Kotlin quality checks. |
-| `kotlin-intellij-plugin-dev` | Guides IntelliJ Platform plugin development with Kotlin and JetBrains APIs. |
 | `omp-kotlin-lsp-bootstrap` | Installs and verifies the official JetBrains Kotlin LSP for OMP. |
 
 ### TypeScript, React, and UI
@@ -394,14 +456,14 @@ Indexing creates local generated state under `.gitnexus/`, updates the global re
 
 | Skill | Purpose |
 |---|---|
-| `clean-code` | Guides naming, cohesion, dependencies, errors, tests, and practical SOLID decisions. |
+| `clean-code` | Keeps naming and design guidance available but hidden from automatic skill discovery. |
 | `software-architecture` | Designs the smallest architecture that preserves contracts and clear boundaries. |
 | `feature-design` | Converts product intent into requirements, acceptance criteria, and implementation plans. |
 | `simplify` | Simplifies code without changing observable behavior. |
 | `ponytail` | Selects the smallest working solution and rejects unnecessary abstractions or dependencies. |
 | `ponytail-review` | Reviews only for over-engineering and identifies code that can be deleted. |
-| `test-driven-development` | Applies a Red-Green-Refactor workflow when lasting behavior needs regression protection. |
-| `verification-before-completion` | Requires fresh verification evidence before completion claims. |
+| `test-driven-development` | Applies strict Red-Green-Refactor only when the user or repository explicitly requires TDD. |
+| `verification-before-completion` | Keeps verification guidance available but hidden from automatic skill discovery. |
 
 ### Research, review, and debugging
 
@@ -420,6 +482,8 @@ Indexing creates local generated state under `.gitnexus/`, updates the global re
 | `infrastructure-review` | Reviews Docker, Terraform, Kubernetes, Helm, CI/CD, secrets, and deployment safety. |
 | `observability-engineering` | Guides metrics, logs, traces, OpenTelemetry, cardinality, alerts, and dashboards. |
 | `simple-english` | Writes clear technical documentation with a pragmatic Simplified Technical English subset. |
+| `documentation-and-adrs` | Records design decisions and maintains technical documentation. |
+| `humanizer` | Rewrites selected documentation only on explicit request while preserving technical meaning. |
 
 ### GitHub workflow
 
@@ -442,6 +506,21 @@ The repository excludes these items:
 - installation-specific automatic QA reporting consent
 
 Do not copy your complete `~/.omp` directory into Git. Use an explicit allowlist.
+
+### Differences from the source machine
+
+This snapshot reproduces the public configuration, not a complete workstation:
+
+- Internal MCP servers, company skills, and custom company agents require separate private setup. The public MongoDB skill retains generic guidance instead of internal deployment assumptions.
+- Provider authentication, installed LSP binaries, local model servers, and shell aliases are not transferred.
+- The local manifest also lists `@latentminds/pi-quotas@0.5.0`. Its runtime is not copied or installed by these instructions; review it separately before adding it.
+- New local skills with incomplete provenance are not included: `api-design`, `testing`, `caveman`, `codebase-design`, `domain-modeling`, `diagnosing-bugs`, `grill-me`, `grill-me-with-docs`, `ship`, `resolving-merge-conflicts`, and `kotlin-functional-style`. An MIT label alone does not establish the source and required copyright notice.
+- The local migration skill contains machine-specific paths. The macOS LSP bootstrap skill currently targets OpenCode despite its name. Neither is included as an OMP setup procedure.
+- `auth-patterns` and `kotlin-intellij-plugin-dev` are removed because they are absent from the source installation.
+
+Review the pre-existing provenance concerns in `THIRD_PARTY_NOTICES.md` before further redistribution.
+
+OpenCode-specific `simplify/README.md` and `simplify/codemap.md` are also excluded; the standalone `SKILL.md` does not reference them.
 
 ## Update the installed copy
 
@@ -466,12 +545,15 @@ Review the complete pulled diff before you create a backup or overwrite the inst
 
 Replace `<backup>` with the path printed during installation. Restoration removes only the controlled paths listed below, then copies their saved versions. This also removes commands, skills, or MCP configuration that did not exist before installation.
 
+This procedure accepts backups created by this revision (`omp-config-v2`). For an older `omp-config-v1` backup, use the restore procedure from the repository revision that created it.
+
 ```bash
 (
   set -eu
   backup="<backup>"
   test -n "$HOME"
-  test "$(cat "$backup/FORMAT")" = "omp-config-v1"
+  test ! -L "$HOME/.omp"
+  test "$(cat "$backup/FORMAT")" = "omp-config-v2"
   test -d "$backup/agent"
   test ! -L "$backup/agent"
   test -d "$HOME/.omp/agent"
@@ -482,6 +564,7 @@ Replace `<backup>` with the path printed during installation. Restoration remove
     RULES.md \
     coding-rules.md \
     response-rules-reminder.md \
+    behavior-control \
     commands \
     skills \
     managed-skills
@@ -491,6 +574,16 @@ Replace `<backup>` with the path printed during installation. Restoration remove
       cp -a "$backup/agent/$path" "$HOME/.omp/agent/"
     fi
   done
+  test -d "$backup/profiles"
+  test ! -L "$backup/profiles"
+  mkdir -p "$HOME/.omp/profiles"
+  test ! -L "$HOME/.omp/profiles"
+  for name in f2p p2w p2w-codex p2w-codex-astra; do
+    rm -f -- "$HOME/.omp/profiles/$name.yml"
+    if [ -e "$backup/profiles/$name.yml" ] || [ -L "$backup/profiles/$name.yml" ]; then
+      cp -a "$backup/profiles/$name.yml" "$HOME/.omp/profiles/"
+    fi
+  done
 )
 ```
 
@@ -498,6 +591,6 @@ Restart OMP after restoration.
 
 ## Sources and licenses
 
-This repository is a private configuration backup. It does not apply one blanket license to all files. Some skills adapt third-party guidance under different licenses.
+This repository is public. It does not apply one blanket license to all files. Some skills adapt third-party guidance under different licenses.
 
 Read [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md). Preserve embedded source and license sections when you modify or redistribute a skill.

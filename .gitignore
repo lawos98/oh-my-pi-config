@@ -12,6 +12,9 @@
 !/agent/coding-rules.md
 !/agent/response-rules-reminder.md
 !/agent/mcp.json
+!/agent/behavior-control/
+/agent/behavior-control/*
+!/agent/behavior-control/config.json
 
 !/agent/commands/
 /agent/commands/*
@@ -31,3 +34,10 @@
 !/agent/managed-skills/*/
 /agent/managed-skills/*/*
 !/agent/managed-skills/*/SKILL.md
+
+!/profiles/
+/profiles/*
+!/profiles/f2p.yml
+!/profiles/p2w.yml
+!/profiles/p2w-codex.yml
+!/profiles/p2w-codex-astra.yml

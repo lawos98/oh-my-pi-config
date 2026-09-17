@@ -1,5 +1,6 @@
 ---
 name: clean-code
+hide: true
 description: >-
   Use when creating or modifying code, reviewing code, or discussing architecture and design.
   Apply SOLID principles plus Clean Code craft for naming, functions, classes, dependencies,

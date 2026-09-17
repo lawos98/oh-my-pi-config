@@ -1,53 +1,123 @@
 async:
   enabled: true
-  maxJobs: 4
+  maxJobs: 8
 task:
-  eager: preferred
+  eager: default
   isolation:
-    mode: rcopy
     merge: patch
-  enableEffort: true
+    enabled: false
+  enableEffort: false
   batch: true
-  maxRecursionDepth: 3
+  maxConcurrency: 4
+  maxRecursionDepth: 1
+  maxEffort: high
+  prewalk: false
 compaction:
   enabled: true
   midTurnEnabled: true
   methodOrder:
     - snapcompact
-    - remote
+    - shake
     - soft
+  thresholdTokens: -1
+  idleEnabled: false
 skills:
   enabled: true
+  enableSkillCommands: true
 providers:
   webSearchOrder:
     []
   memoryModel: online
+  autoThinkingMaxEffort: xhigh
 modelRoles:
-  default: openai-codex/gpt-5.6-sol
-  smol: openai-codex/gpt-5.6-luna
-  task: openai-codex/gpt-5.6-luna
-  plan: openai-codex/gpt-5.6-sol:high
-  slow: openai-codex/gpt-5.6-sol:xhigh
+  default: github-copilot/gpt-5.6-luna:auto
+  smol: github-copilot/gpt-5.6-luna:off
+  task: openai-codex/gpt-5.6-luna:medium
+  plan: github-copilot/gpt-5.6-luna:high
+  slow: github-copilot/gpt-5.6-luna:auto
+  vision: github-copilot/gpt-5.6-luna:medium
+  designer: github-copilot/gpt-5.6-luna:high
+  commit: github-copilot/gpt-5.6-luna:minimal
+  tiny: github-copilot/gpt-5.6-luna:off
+  advisor: github-copilot/gpt-5.6-luna:off
 cycleOrder:
   - smol
-  - default
   - slow
-symbolPreset: unicode
+  - default
+symbolPreset: nerd
 composer:
-  shape: box
+  shape: band
 theme:
   dark: titanium
+  light: obsidian
 setupVersion: 2
-omitThinking: false
+omitThinking: true
 steeringMode: one-at-a-time
 tools:
   approvalMode: yolo
 memory:
-  backend: local
+  backend: "off"
 autolearn:
-  enabled: true
-  autoContinue: true
+  enabled: false
+  autoContinue: false
 edit:
   mode: hashline
 security:
   enabled: true
+statusLine:
+  preset: custom
+  separator: powerline
+  contextLine: embedded
+  transparent: false
+  leftSegments:
+    - pi
+    - model
+    - mode
+    - collab
+    - path
+    - git
+    - token_out
+    - usage
+    - pr
+    - context_pct
+    - cost
+  rightSegments:
+    - session_name
+tui:
+  textSizing: false
+  tight: true
+defaultThinkingLevel: auto
+modelRoleStorage: global
+personality: pragmatic
+advisor:
+  enabled: false
+  immuneTurns: 3
+loop:
+  mode: prompt
+power:
+  sleepPrevention: system
+github:
+  enabled: true
+todo:
+  remindersMax: 5
+  eager: preferred
+display:
+  shimmer: classic
+  showTokenUsage: true
+  showTurnTime: true
+retry:
+  maxRetries: 3
+prewalk:
+  enabled: false
+spelling:
+  autocorrect: true
+  autocomplete: true
+  typoDetection: false
+startup:
+  quiet: true
+features:
+  unexpectedStopDetection: mechanical
+hideThinkingBlock: true
+isolation:
+  backend: auto
+followUpMode: one-at-a-time

@@ -1,0 +1,11 @@
+modelRoles:
+  default: "openai-codex/gpt-6-astra:low"
+  plan: "openai-codex/gpt-6-astra:low"
+  slow: "openai-codex/gpt-6-astra:low"
+  task: "openai-codex/gpt-6-astra:low"
+  designer: "openai-codex/gpt-6-astra:low"
+  advisor: "openai-codex/gpt-6-astra:low"
+  vision: "openai-codex/gpt-6-astra:low"
+  smol: "openai-codex/gpt-5.6-luna:low"
+  commit: "openai-codex/gpt-5.6-luna:low"
+  tiny: "openai-codex/gpt-5.6-luna:low"
