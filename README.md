@@ -52,7 +52,7 @@ The reusable configuration does not include automatic QA reporting consent. Each
 │   ├── f2p.yml
 │   ├── p2w.yml
 │   ├── p2w-codex.yml
-│   └── p2w-codex-astra.yml
+│   └── p2w-codex-max.yml
 ├── .gitignore
 ├── README.md
 └── THIRD_PARTY_NOTICES.md
@@ -127,7 +127,7 @@ The MCP copy replaces the destination MCP file with the public GitNexus-only def
   done
   mkdir "$backup/profiles"
   test ! -L "$HOME/.omp/profiles"
-  for name in f2p p2w p2w-codex p2w-codex-astra; do
+  for name in f2p p2w p2w-codex p2w-codex-max; do
     if [ -e "$HOME/.omp/profiles/$name.yml" ] || [ -L "$HOME/.omp/profiles/$name.yml" ]; then
       cp -a "$HOME/.omp/profiles/$name.yml" "$backup/profiles/"
     fi
@@ -217,7 +217,7 @@ Review `agent/config.yml` first. Pay special attention to model names, `approval
   chmod 600 "$HOME/.omp/agent/config.yml"
   mkdir -p "$HOME/.omp/profiles"
   test ! -L "$HOME/.omp/profiles"
-  for name in f2p p2w p2w-codex p2w-codex-astra; do
+  for name in f2p p2w p2w-codex p2w-codex-max; do
     test -f "profiles/$name.yml"
     test ! -L "profiles/$name.yml"
     rm -f -- "$HOME/.omp/profiles/$name.yml"
@@ -251,19 +251,19 @@ These files contain model choices, not credentials. They are `--config` overlays
 |---|---|
 | `p2w.yml` | GitHub Copilot access to the configured Luna models |
 | `p2w-codex.yml` | OpenAI Codex access to the configured Luna models |
-| `p2w-codex-astra.yml` | OpenAI Codex access to Astra and Luna models |
+| `p2w-codex-max.yml` | OpenAI Codex access to Astra and Luna models |
 | `f2p.yml` | LM Studio running with the configured Qwen model loaded; configure its connection locally |
 
 For example, select the Astra overlay after installation:
 
 ```bash
-omp --config "$HOME/.omp/profiles/p2w-codex-astra.yml"
+omp --config "$HOME/.omp/profiles/p2w-codex-max.yml"
 ```
 
 Or load both files without installing the base configuration:
 
 ```bash
-omp --config "$PWD/agent/config.yml" --config "$PWD/profiles/p2w-codex-astra.yml"
+omp --config "$PWD/agent/config.yml" --config "$PWD/profiles/p2w-codex-max.yml"
 ```
 
 Later overlays take precedence. Shell aliases are not copied. See [OMP configuration overlays](https://github.com/can1357/oh-my-pi/blob/main/docs/settings.md).
@@ -578,7 +578,7 @@ This procedure accepts backups created by this revision (`omp-config-v2`). For a
   test ! -L "$backup/profiles"
   mkdir -p "$HOME/.omp/profiles"
   test ! -L "$HOME/.omp/profiles"
-  for name in f2p p2w p2w-codex p2w-codex-astra; do
+  for name in f2p p2w p2w-codex p2w-codex-max; do
     rm -f -- "$HOME/.omp/profiles/$name.yml"
     if [ -e "$backup/profiles/$name.yml" ] || [ -L "$backup/profiles/$name.yml" ]; then
       cp -a "$backup/profiles/$name.yml" "$HOME/.omp/profiles/"

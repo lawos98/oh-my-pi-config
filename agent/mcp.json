@@ -4,12 +4,15 @@
     "gitnexus": {
       "type": "stdio",
       "command": "gitnexus",
-      "args": ["mcp"],
+      "args": [
+        "mcp"
+      ],
       "env": {
         "DO_NOT_TRACK": "1",
         "GITNEXUS_MCP_READ_ONLY": "1",
         "SCARF_ANALYTICS": "false"
       },
+      "enabled": true,
       "timeout": 120000
     }
   }

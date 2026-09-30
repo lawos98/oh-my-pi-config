@@ -1,103 +1,68 @@
 ---
 name: feature-design
-description: "Use when planning new features, exploring user intent, gathering requirements, writing user stories, EARS functional requirements, acceptance criteria, and implementation checklists. Brainstorm first, then formalize into a spec before any implementation begins."
+description: Design features and behavior changes through evidence-backed brainstorming. Use when intent, scope, requirements, acceptance criteria, or competing approaches need clarification before implementation.
 license: MIT
 metadata:
   domain: workflow
   role: specialist
   scope: design
-  output-format: document
-  triggers: brainstorming, requirements, feature definition, user stories, EARS, acceptance criteria, planning, specification
+  output-format: conversation
 ---
 
 # Feature Design
 
-Run a structured pre-implementation workshop that turns an idea into a validated feature spec.
+Reach shared understanding before implementation when the requested behavior is materially ambiguous. Do not force a design workshop onto a small request whose intent and constraints are already clear.
 
-## Core Principle
+## 1. Establish evidence
 
-**Flow: brainstorm first → then formalize into specs.**
+Inspect the repository before questioning the user. Read the relevant implementation, callers, configuration, tests, `CONTEXT.md` or `CONTEXT-MAP.md`, and applicable ADRs.
 
-Do not start implementation until the design/spec has been presented, reviewed, and approved.
+Facts are the agent's responsibility. Ask the user only for intent, priorities, preferences, trade-offs, and decisions that evidence cannot settle.
 
-## When to Use
+## 2. Map the decision tree
 
-- Defining a new feature from scratch
-- Clarifying vague ideas or changing behavior
-- Writing requirements, user stories, or acceptance criteria
-- Producing EARS-style functional requirements
-- Creating a concise implementation checklist
+Treat the design as a dependency tree. The **frontier** is every unresolved decision whose prerequisites are already settled.
 
-## Operating Modes
+Cover only branches required by the feature:
 
-- **PM hat:** user value, goals, scope, success criteria
-- **Dev hat:** feasibility, edge cases, security, performance, error handling
+- problem, actors, and intended outcome;
+- current behavior and desired behavior;
+- scope and explicit non-goals;
+- domain vocabulary and invariants;
+- user-visible flows and state transitions;
+- failure, recovery, authorization, and data boundaries;
+- compatibility, operational, and performance constraints;
+- the smallest useful implementation slice;
+- observable acceptance criteria.
 
-## Required Workflow
+## 3. Ask frontier rounds
 
-1. **Explore context** — inspect relevant files, docs, and recent decisions before asking questions.
-2. **Check scope** — if the request spans multiple independent systems, decompose it before going deeper.
-3. **Brainstorm** — ask one question at a time to understand purpose, constraints, users, and success criteria.
-4. **Use structured choices** — prefer multiple-choice prompts when possible; use open-ended questions only when needed.
-5. **Offer visuals when useful** — if a question is inherently visual, offer the browser-based visual companion as its own message.
-6. **Compare approaches** — propose 2-3 options with trade-offs and a recommendation.
-7. **Present the design** — summarize the intended solution in clear sections and pause for approval after each section when useful.
-8. **Formalize the spec** — convert the brainstorm into a written feature spec.
-9. **Review the spec** — remove ambiguity, contradictions, placeholders, and gaps.
-10. **Get approval** — ask the user to review the written spec before moving on.
-11. **Hand off** — once approved, transition into implementation planning.
+Ask the whole current frontier in one round. Use structured choices when they represent the real options, recommend one answer for every question, and explain the material trade-off concisely.
 
-## Brainstorming Rules
+Do not ask a question whose answer depends on another unresolved question in the same round. Recompute the frontier after each response and continue until no material branch remains silently assumed.
 
-- Ask only **one** question per message.
-- Prefer short, answerable questions.
-- Focus on: who it is for, why it matters, what constraints exist, and how success is measured.
-- If the request is too broad, split it into smaller features and design the first one.
-- Stay focused; do not propose unrelated refactors.
+For a complex or inherently visual decision, one focused question is acceptable. When prose cannot settle a concrete logic, state-model, or UI uncertainty, use the `prototype` skill under its approval and cleanup rules.
 
-## Design Rules
+When discussion changes project-specific terminology, use `domain-modeling` and update the applicable glossary as terms become settled.
 
-- Break the feature into small, clearly bounded units.
-- For each unit, define: what it does, how it is used, and what it depends on.
-- Keep the design minimal; avoid extra flexibility that is not needed yet.
-- Follow existing project patterns unless there is a clear reason not to.
+## 4. Confirm the design
 
-## Spec Requirements
+Summarize:
 
-The final spec should include:
+- the problem and desired outcome;
+- chosen behavior and rejected alternatives;
+- scope and non-goals;
+- important invariants and failure behavior;
+- the smallest useful slice;
+- acceptance criteria;
+- unresolved risks, if any.
 
-- Overview and user value
-- Assumptions and scope
-- Functional requirements in **EARS** form
-- User stories when helpful
-- Non-functional requirements (performance, security, reliability)
-- Error handling and edge cases
-- Acceptance criteria in testable form
-- Implementation checklist
+Ask the user to confirm that this is the shared understanding. Do not begin implementation while a material decision remains open.
 
-## EARS Guidance
+## 5. Create only requested artifacts
 
-Write requirements as clear, testable statements such as:
+The default output is the confirmed conversation. Create a specification, Jira issue, implementation plan, ADR, or repository document only when the user requests that artifact.
 
-- When <trigger>, the system shall <response>.
-- Where <condition> is active, the system shall <behavior>.
-- The system shall <action> within <measure>.
+When a specification is requested, match the repository's existing convention. If none exists, include only the sections needed to preserve the confirmed behavior: outcome, scope, requirements, failure behavior, acceptance criteria, and non-goals. Do not add placeholders or implementation detail disguised as requirements.
 
-## Acceptance Criteria Guidance
-
-Use concrete, verifiable scenarios. Favor Given/When/Then language.
-
-## Review Checklist
-
-Before handing off, confirm:
-
-- No TBDs, TODOs, or placeholders remain
-- No contradictory requirements
-- Scope is still coherent for a single implementation plan
-- Ambiguous statements have been made explicit
-- Requirements are testable
-- Security and error handling are addressed
-
-## Handoff
-
-After the spec is approved, move into implementation planning.
+When implementation follows, hand the confirmed decisions to the normal OMP implementation workflow; this skill does not create a second implementation process.

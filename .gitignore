@@ -20,6 +20,7 @@
 /agent/commands/*
 !/agent/commands/create-skill.md
 !/agent/commands/pr-review.md
+!/agent/commands/omp-improve-setup.md
 !/agent/commands/self-review.md
 !/agent/commands/simplify-code.md
 
@@ -28,6 +29,14 @@
 !/agent/skills/*/
 /agent/skills/*/*
 !/agent/skills/*/SKILL.md
+!/agent/skills/skill-creator/scripts/
+!/agent/skills/skill-creator/scripts/**
+!/agent/skills/skill-creator/references/
+!/agent/skills/skill-creator/references/**
+!/agent/skills/skill-creator/agents/
+!/agent/skills/skill-creator/agents/**
+!/agent/skills/skill-creator/eval-viewer/
+!/agent/skills/skill-creator/eval-viewer/**
 
 !/agent/managed-skills/
 /agent/managed-skills/*
@@ -40,4 +49,4 @@
 !/profiles/f2p.yml
 !/profiles/p2w.yml
 !/profiles/p2w-codex.yml
-!/profiles/p2w-codex-astra.yml
+!/profiles/p2w-codex-max.yml
