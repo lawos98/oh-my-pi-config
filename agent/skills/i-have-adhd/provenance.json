@@ -1,0 +1,13 @@
+{
+  "upstream": "https://github.com/ayghri/i-have-adhd",
+  "commit": "723af7d9afaf43eb871dbcce6129e2bf80de90d5",
+  "license": "MIT",
+  "included": ["Adapted skills/i-have-adhd/SKILL.md", "LICENSE"],
+  "excluded": ["extensions", "hooks", "scripts", "plugin manifests", "installers"],
+  "adaptations": [
+    "Model-selectable through natural-language prompts rather than manual-only invocation",
+    "Attention-friendly default with complete requested detail and agent-owned execution preserved",
+    "Removed biological assumptions, mandatory estimates, hard list quotas and unsupported cause-first error reporting",
+    "OMP todo, safety and verification policies remain authoritative; no added runtime or commands"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "repository": "https://github.com/mattpocock/skills",
+  "revision": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7",
+  "path": "skills/engineering/improve-codebase-architecture",
+  "version": "1.2.3",
+  "license": "MIT",
+  "author": "Matt Pocock",
+  "installation": "One-time OMP adaptation; no upstream runtime or automatic updates",
+  "adaptations": [
+    "Replaced CDN-backed HTML output with a concise chat report",
+    "Removed mandatory subagent and Claude Skill-tool assumptions",
+    "Requires explicit approval before a broad survey",
+    "Uses existing OMP codebase-design and research capabilities"
+  ]
+}

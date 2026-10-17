@@ -1,0 +1,13 @@
+{
+  "upstream": "https://github.com/softaworks/agent-toolkit",
+  "commit": "3027f20f3181758385a1bb8c022d4041dfb4de84",
+  "license": "MIT",
+  "included": ["Adapted skills/session-handoff/SKILL.md", "Adapted references/resume-checklist.md", "LICENSE"],
+  "excluded": ["scripts", "plugin manifests", "commands", "automatic milestone capture", "quality scoring"],
+  "adaptations": [
+    "Natural-language save and resume with no new command or runtime",
+    "Default notes outside the project tree and scoped to full project identity",
+    "Explicit tracked/untracked inventory, factual uncertainty, check outcomes and failure-stop authorization",
+    "Notes treated as untrusted historical evidence; current workspace and OMP policy control resumption"
+  ]
+}

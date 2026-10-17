@@ -1,0 +1,14 @@
+{
+  "repository": "https://github.com/addyosmani/agent-skills",
+  "revision": "1401c8b8030e023baeebb31781a6653fe8e93026",
+  "path": "skills/deprecation-and-migration/SKILL.md",
+  "license": "MIT",
+  "author": "Addy Osmani",
+  "installation": "Pinned passive OMP adaptation; no external runtime, commands, scripts or automatic updates",
+  "adaptations": [
+    "Balanced control: direct scoped implementation, proposal and target agreement before broad edits",
+    "Default clean cutover; staged coexistence only for demonstrated compatibility/deployment constraints",
+    "Explicit recovery limits, information loss, backfill concurrency and unknown live consumers",
+    "Removed universal production-readiness/down-migration claims, package/production authority and per-phase check loops"
+  ]
+}

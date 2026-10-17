@@ -2,7 +2,7 @@
 
 This public repository contains a sanitized copy of my Oh My Pi configuration.
 
-The source installation uses OMP `18.4.4`. The snapshot contains configuration, model overlays, global rules, commands, skills, and a GitNexus MCP definition with a read-only tool allowlist. It does not contain credentials, authenticated or organization-specific MCP servers, plugin runtime state, logs, sessions, databases, caches, or machine-specific paths.
+The source installation uses OMP `18.10.1`, confirmed with `omp --version`. The snapshot contains configuration, four model overlays, global rules, five commands, 52 portable skills with supporting files, plugin manifests and locks, extension preferences, and a GitNexus MCP definition with a read-only tool allowlist. It does not contain credentials, private MCP endpoints, installed plugin code, logs, sessions, databases, caches, or personal machine paths.
 
 ## Important warning
 
@@ -53,6 +53,12 @@ The reusable configuration does not include automatic QA reporting consent. Each
 │   ├── p2w.yml
 │   ├── p2w-codex.yml
 │   └── p2w-codex-max.yml
+├── plugins/
+│   ├── package.json
+│   ├── bun.lock
+│   ├── omp-plugins.lock.json
+│   ├── ponytail.json
+│   └── quotas.json
 ├── .gitignore
 ├── README.md
 └── THIRD_PARTY_NOTICES.md
@@ -78,7 +84,7 @@ Check OMP:
 omp --version
 ```
 
-Use OMP `18.4.4` to match the source installation. This snapshot does not pin provider-side model availability or reproduce credentials.
+Use OMP `18.10.1` to match the source installation. This snapshot does not pin provider-side model availability or reproduce credentials. Exporting the setup does not upgrade OMP or any plugin on your current machine.
 
 ## Installation
 
@@ -91,7 +97,7 @@ cd oh-my-pi-config
 
 ### 2. Back up the current OMP files
 
-Run the following blocks in Bash, from this checkout. The copy steps overwrite matching files and remove two retired skills. They preserve unrelated skills and model overlays. Stop OMP before installing or restoring files.
+Run the following blocks in Bash, from this checkout. The copy steps overwrite matching files and remove named retired commands and skills, including duplicate Ponytail copies. They preserve unrelated skills and model overlays. Stop OMP before installing or restoring files. Optional plugin installation and preferences are separate: back up their existing files before following that section.
 
 The MCP copy replaces the destination MCP file with the public GitNexus-only definition. Back up private integrations and merge them locally afterward; never commit them here.
 
@@ -162,6 +168,7 @@ The MCP copy replaces the destination MCP file with the public GitNexus-only def
     agent/mcp.json \
     agent/behavior-control/config.json \
     agent/commands/create-skill.md \
+    agent/commands/pr-comments.md \
     agent/commands/pr-review.md \
     agent/commands/self-review.md \
     agent/commands/simplify-code.md
@@ -178,19 +185,29 @@ The MCP copy replaces the destination MCP file with the public GitNexus-only def
       while IFS= read -r -d '' source; do
         test -f "$source"
         test ! -L "$source"
-        destination="$HOME/.omp/agent/${source#agent/}"
-        skill_dir="${destination%/SKILL.md}"
+        skill_dir="$HOME/.omp/agent/${source#agent/}"
+        skill_dir="${skill_dir%/SKILL.md}"
         rm -rf -- "$skill_dir"
         mkdir -p "$skill_dir"
-        cp "$source" "$destination"
       done
   done
+  git ls-files -z -- 'agent/skills/**' 'agent/managed-skills/**' |
+    while IFS= read -r -d '' source; do
+      test -f "$source"
+      test ! -L "$source"
+      destination="$HOME/.omp/agent/${source#agent/}"
+      mkdir -p "${destination%/*}"
+      cp -p "$source" "$destination"
+    done
   rm -rf -- \
     "$HOME/.omp/agent/commands/build-feature.md" \
     "$HOME/.omp/agent/commands/build-ui.md" \
     "$HOME/.omp/agent/commands/gitnexus-analyze.md" \
     "$HOME/.omp/agent/commands/kotlin-quality.md" \
     "$HOME/.omp/agent/commands/omp-health.md" \
+    "$HOME/.omp/agent/commands/omp-improve-setup.md" \
+    "$HOME/.omp/agent/skills/ponytail" \
+    "$HOME/.omp/agent/skills/ponytail-review" \
     "$HOME/.omp/agent/skills/auth-patterns" \
     "$HOME/.omp/agent/skills/kotlin-intellij-plugin-dev"
 
@@ -284,19 +301,23 @@ gitnexus --version
 
 Each `omp read` command must return the selected skill. If a skill is missing, check its directory name and `SKILL.md` frontmatter. Start a new OMP session and confirm that command completion lists `/self-review` and `/create-skill`.
 
+This snapshot was smoke-tested with OMP `18.10.1` and an isolated temporary home. The documented backup, skill/command copy, configuration/overlay copy, and extension-preference copy blocks completed; installed files matched the snapshot. OMP loaded the `codebase-design/DEEPENING.md` and `writing-for-agents/SKILL-MECHANICS.md` references and the managed `infrastructure-review` skill, and read the preserved `tools.approvalMode: yolo` setting. Plugin enablement records, private/runtime exclusions, and secret-pattern checks passed. No plugin installers, provider calls, MCP connections, browser relay, or interactive command expansion were exercised.
+
 ## Optional plugins
 
-Plugins are separate from this repository snapshot. Plugin code runs inside OMP and can execute installation lifecycle steps. Review every source before installation.
+The repository records every installed public plugin without vendoring its executable code. Review each source before installing: plugins execute inside OMP, may run lifecycle scripts, and may contact external services. No plugins are installed by the configuration copy steps above.
 
-The source setup used these versioned package plugins:
+`plugins/package.json` pins the four package plugins. `plugins/bun.lock` captures the installed dependency graph and integrity hashes; the CLI commands below pin direct versions but may resolve transitive dependencies differently. `plugins/omp-plugins.lock.json` records all seven plugin entries and their enabled state without machine paths. Do not overwrite an unrelated installation's lock file; apply the named states through OMP's CLI instead.
 
 ```bash
 omp plugin install @dietrichgebert/ponytail@4.9.0
 omp plugin install pi-behavior-control@0.1.9
+omp plugin disable pi-behavior-control
 omp plugin install @plannotator/pi-extension@0.27.9
+omp plugin install @latentminds/pi-quotas@0.5.0
 ```
 
-It also used three plugins from the audited Anthropic marketplace commit `ed404106fcd80ba98ecb7c851e531dcb626d13b7`:
+The three installed marketplace plugins match the corresponding file blobs at Anthropic marketplace commit `ed404106fcd80ba98ecb7c851e531dcb626d13b7`. Register that pinned source rather than a floating marketplace:
 
 ```bash
 (
@@ -313,20 +334,47 @@ It also used three plugins from the audited Anthropic marketplace commit `ed4041
 )
 ```
 
-The catalog and these three plugin manifests do not declare versions. OMP therefore records the documented fallback version `0.0.0`; the checked-out commit, not that fallback value, binds the installed source. Do not pull or update this marketplace without reviewing and recording the new commit first.
+The marketplace manifests do not declare versions. Their recorded `0.0.0` is a fallback, not a source pin. Do not update the marketplace without reviewing and recording the new revision.
 
-| Plugin | Purpose |
-|---|---|
-| `ponytail` | Prefers the smallest solution and rejects unnecessary code or dependencies. |
-| `pi-behavior-control` | Adds response, review, and verification guardrails. |
-| `Plannotator` | Provides guided plan and code-review annotation tools. |
-| `context7` | Retrieves current library and framework documentation. |
-| `github` | Adds GitHub issue, pull-request, and repository integration. |
-| `frontend-design` | Adds visual design guidance for frontend work. |
+| Plugin | Version | Installed state | Purpose |
+|---|---|---|---|
+| `@dietrichgebert/ponytail` | `4.9.0` | Enabled; default mode **off** | Minimalism skills, slash commands, and extension |
+| `pi-behavior-control` | `0.1.9` | **Disabled** | Optional review and response guardrails |
+| `@plannotator/pi-extension` | `0.27.9` | Enabled | Guided plan and code-review annotations |
+| `@latentminds/pi-quotas` | `0.5.0` | Enabled | Quota and token commands, footer widgets, and warnings |
+| `context7` | `0.0.0` fallback | Enabled | Hosted library-documentation MCP |
+| `github` | `0.0.0` fallback | Enabled | Hosted GitHub MCP |
+| `frontend-design` | `0.0.0` fallback | Enabled | Visual design skill |
 
-Package plugins are installed under `~/.omp/plugins/node_modules/` and recorded in OMP's package and lock files. Marketplace plugins use `~/.omp/marketplaces.json`, `~/.omp/plugins/installed_plugins.json`, a shared cache, a generated symlink, and the plugin lock file. These paths are mutable installation state, not source configuration, so this repository excludes them.
+After installing, restore the source's named enablement choices explicitly:
 
-The local `~/.omp/vendor/ponytail/` directory is a stale, duplicate multi-harness source copy. The active OMP plugin loads the installed `@dietrichgebert/ponytail@4.9.0` package instead. Do not copy `vendor/` into this repository or into another OMP installation.
+```bash
+omp plugin enable @dietrichgebert/ponytail @plannotator/pi-extension @latentminds/pi-quotas context7 github frontend-design
+omp plugin disable pi-behavior-control
+```
+
+The GitHub marketplace MCP requires `GITHUB_PERSONAL_ACCESS_TOKEN` supplied locally; Context7 optionally uses `CONTEXT7_API_KEY`. Neither value is included. These plugin-provided MCPs are separate from the GitNexus-only `agent/mcp.json`. The snapshot's optional GitHub integration is a public service, not a private company endpoint.
+
+Two feature-preference files live outside `~/.omp` on the source machine. Their portable copies are `plugins/ponytail.json` (default mode `off`) and `plugins/quotas.json` (all six quota features enabled). Back up any existing destination files first; the following copy intentionally replaces those preferences. Quotas `0.5.0` uses `~/.pi/agent/extensions/quotas.json` even when hosted by OMP. Ponytail honors `XDG_CONFIG_HOME` and the `PONYTAIL_DEFAULT_MODE` environment override.
+
+```bash
+(
+  set -eu
+  config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
+  for path in "$config_home" "$config_home/ponytail" "$HOME/.pi" "$HOME/.pi/agent" "$HOME/.pi/agent/extensions"; do
+    test ! -L "$path"
+    mkdir -p "$path"
+  done
+  test ! -L "$config_home/ponytail/config.json"
+  test ! -L "$HOME/.pi/agent/extensions/quotas.json"
+  cp plugins/ponytail.json "$config_home/ponytail/config.json"
+  cp plugins/quotas.json "$HOME/.pi/agent/extensions/quotas.json"
+)
+```
+
+`pi-behavior-control` remains disabled despite its historical verifier-model configuration under `agent/behavior-control/`. The installed Ponytail plugin supplies its own skills and commands; stale standalone copies are removed to avoid duplicate ownership.
+
+Package runtime directories, generated marketplace registries, plugin caches, and duplicate `vendor/` trees remain excluded. Only portable inputs and feature preferences are tracked.
 
 Check plugin state without applying fixes:
 
@@ -336,6 +384,17 @@ omp plugin doctor
 ```
 
 Use `/reload-plugins` after a skill, command, agent, or MCP-only plugin change. Restart OMP after an install or upgrade that adds or changes executable tools, hooks, or extensions; the active extension runner is not rebuilt in place.
+
+## Browser relay extension
+
+The source also has OMP's generated Chrome browser-relay extension under `~/.omp/browser-relay/extension`. It is bundled runtime code, not a custom user extension, so regenerate it with the installed OMP version instead of copying an older generated bundle:
+
+```bash
+omp browser-relay install
+```
+
+Follow the printed Chrome setup steps. Start the relay separately with `omp browser-relay` only when you intend to expose selected browser tabs to OMP. Configure any relay token locally; tokens and browser-local settings are not part of this snapshot. No relay service is started by the installation procedure above.
+
 
 ## Configuration reference
 
@@ -368,6 +427,7 @@ Files under `agent/commands/` become slash commands in a new OMP session.
 | Command | Purpose | Extra requirement |
 |---|---|---|
 | `/create-skill` | Creates one validated managed skill without duplicating existing capabilities. | Automatic learning enabled |
+| `/pr-comments` | Triages every PR comment into `PR_COMMENTS.md` and applies accepted fixes locally; never posts or pushes. | GitHub CLI authentication |
 | `/pr-review` | Reviews the checked-out GitHub pull request and writes `PR_REVIEW.md`; never posts comments or edits source. | GitHub CLI authentication |
 | `/self-review` | Reviews every change since `main` for evidence-backed correctness, security, architecture, and maintainability defects. | A Git repository with local `main` or `origin/main` |
 | `/simplify-code` | Removes accidental complexity while preserving observable behavior. | None |
@@ -438,7 +498,6 @@ Indexing creates local generated state under `.gitnexus/`, updates the global re
 |---|---|
 | `api-robustness` | Validates API input, protects internal errors, and defines atomic idempotency behavior. |
 | `database-architect` | Designs MongoDB schemas, indexes, migrations, and data-layer boundaries. |
-| `mongodb-optimizer` | Optimizes MongoDB queries, aggregation pipelines, indexes, and connection pools. |
 | `kotlin-spring-backend` | Guides Kotlin Spring Boot implementation, testing, operations, clients, and persistence. |
 | `reactive-kotlin` | Covers coroutines, Flow, WebFlux, cancellation, backpressure, and safe retries. |
 | `kotlin-quality-gates` | Applies repository-specific ktlint, detekt, Gradle, and Kotlin quality checks. |
@@ -456,14 +515,12 @@ Indexing creates local generated state under `.gitnexus/`, updates the global re
 
 | Skill | Purpose |
 |---|---|
-| `clean-code` | Keeps naming and design guidance available but hidden from automatic skill discovery. |
 | `software-architecture` | Designs the smallest architecture that preserves contracts and clear boundaries. |
 | `feature-design` | Converts product intent into requirements, acceptance criteria, and implementation plans. |
 | `simplify` | Simplifies code without changing observable behavior. |
 | `ponytail` | Selects the smallest working solution and rejects unnecessary abstractions or dependencies. |
 | `ponytail-review` | Reviews only for over-engineering and identifies code that can be deleted. |
 | `test-driven-development` | Applies strict Red-Green-Refactor only when the user or repository explicitly requires TDD. |
-| `verification-before-completion` | Keeps verification guidance available but hidden from automatic skill discovery. |
 
 ### Research, review, and debugging
 
@@ -498,39 +555,38 @@ The repository excludes these items:
 - authentication and credential state
 - authenticated, internal, and organization-specific MCP servers
 - Jira and organization-specific skills
-- plugin caches, registries, package state, generated lock files, and duplicate `vendor/` source trees
+- plugin caches, generated marketplace registries, installed runtime code, and duplicate `vendor/` source trees; the portable package manifest, dependency lock, and enablement lock are included
 - GitNexus indexes and its global registry
 - logs, sessions, databases, histories, memories, blobs, and terminal state
 - local IDE metadata and hardware cache files
-- absolute machine paths and timestamps
+- absolute personal machine paths and installation timestamps
 - installation-specific automatic QA reporting consent
 
 Do not copy your complete `~/.omp` directory into Git. Use an explicit allowlist.
 
-## Snapshot refresh: OMP 18.4.4
+## Snapshot refresh: OMP 18.10.1
 
-- Refresh the base configuration and paid overlays to the source's GPT-6 Luna and GPT-6.1 Sol role assignments. Enable secret obfuscation without copying its local key or installation-specific QA consent.
-- Update global rules, the response reminder, review/simplification guidance, and OMP skill-authoring instructions from the source installation.
-- Add `i-have-adhd`, `stop-slop`, `session-handoff`, `lesson-learned`, `deprecation-and-migration`, `spec-to-code-compliance`, and `omp-setup-maintenance`, retaining their provenance and available license files.
+- Record the installed OMP `18.10.1` version while preserving current base settings and all four model overlays. Keep secret obfuscation enabled without publishing its key or installation-specific QA consent.
+- Sync current global rules and all five commands, including a public-docs-only `/pr-comments` adaptation.
+- Include all portable skill support files and available redistribution notices; copy complete tracked skill contents during installation rather than only `SKILL.md`.
 - Replace the retired `/omp-improve-setup` command with natural-language selection of `omp-setup-maintenance`. Remove an old installed `~/.omp/agent/commands/omp-improve-setup.md` after backing it up; the copy procedure preserves unrelated commands.
 - Keep the public GitNexus-only MCP definition and existing generic managed-skill adaptations rather than copying private integrations or company guidance.
-- Plugin-supplied Ponytail guidance and the optional behavior-control configuration remain historical snapshot assets; they are not evidence of an enabled verifier in the current installation.
+- Record all four package plugins and three marketplace plugins, preserve behavior control as disabled and Ponytail's default mode as off, and include quota-extension preferences without credentials.
 
 
 ### Differences from the source machine
 
 This snapshot reproduces the public configuration, not a complete workstation:
 
-- Internal MCP servers, company skills, and custom company agents require separate private setup. The public MongoDB skill retains generic guidance instead of internal deployment assumptions.
-- Provider authentication, installed LSP binaries, local model servers, and shell aliases are not transferred.
-- The local manifest also lists `@latentminds/pi-quotas@0.5.0`. Its runtime is not copied or installed by these instructions; review it separately before adding it.
-- New local skills with incomplete provenance are not included: `api-design`, `testing`, `caveman`, `codebase-design`, `domain-modeling`, `diagnosing-bugs`, `grill-me`, `grill-me-with-docs`, `ship`, `resolving-merge-conflicts`, and `kotlin-functional-style`. An MIT label alone does not establish the source and required copyright notice.
-- The local migration skill contains machine-specific paths. The macOS LSP bootstrap skill currently targets OpenCode despite its name. Neither is included as an OMP setup procedure.
-- `auth-patterns` and `kotlin-intellij-plugin-dev` are removed because they are absent from the source installation.
+- Internal MCP servers, company skills, and custom company agents require separate private setup. This includes the Allegro-only provider configuration and infrastructure-heavy MongoDB and Kotlin hexagonal-service guidance; none is published here.
+- Provider authentication, installed LSP binaries, local model servers, and shell aliases are not transferred. There are no standalone custom OMP extensions, hooks, or themes in the source setup; package extensions come from the pinned plugins, and the bundled browser relay is regenerated separately.
+- All 42 portable user skills and 10 managed skills are included with their available supporting assets and provenance. Some pre-existing skills still lack complete upstream license metadata; this snapshot makes no blanket licensing claim.
+- The migration skill uses home-relative paths in this public copy. `omp-macos-lsp-bootstrap` is included as installed but explicitly targets OpenCode, not OMP; do not use it as an OMP installation procedure.
+- `auth-patterns` and `kotlin-intellij-plugin-dev` are absent from the source installation. Ponytail skills and commands are supplied by the pinned plugin, not stale standalone copies.
 
 Review the pre-existing provenance concerns in `THIRD_PARTY_NOTICES.md` before further redistribution.
 
-OpenCode-specific `simplify/README.md` and `simplify/codemap.md` are also excluded; the standalone `SKILL.md` does not reference them.
+OpenCode-specific `simplify/README.md` and `simplify/codemap.md` remain excluded because the standalone `SKILL.md` does not reference them. Other supporting references, templates, images, licenses, and provenance are installed with their skill directories.
 
 ## Update the installed copy
 

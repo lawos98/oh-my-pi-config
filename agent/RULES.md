@@ -3,6 +3,8 @@
 - Treat `omp` as the orchestrator. Delegate independent discovery, testing, and review work when that reduces wall-clock time; do not delegate trivial work.
 - Use parallel agents primarily for read-only analysis. Keep one coherent writer/integrator for production changes unless files are cleanly partitioned.
 - Prefer the smallest solution that satisfies the requirement. Do not introduce speculative abstractions, dependencies, frameworks, or compatibility layers.
+- Keep every PR scoped to the requested task and as small as correctness permits, so reviewers can inspect it easily. Leave unrelated code identical to the target branch: no opportunistic refactors, formatting, renames, cleanup, or dependency/configuration changes. Include only implementation, tests, and documentation needed for the requested behavior; never shrink agreed acceptance criteria just to reduce the diff.
+- Validate Kotlin request data at service entry points using Jakarta Bean Validation annotations on request data classes and `@Valid` on the receiving endpoint. Do not use Kotlin `require`, `check`, or `verify`-style guards for validation inside domain code or the service layer. Keep genuine domain invariants and business rules explicit; report invalid requests through the existing boundary error handling.
 - Treat Clean Code, SOLID, and complexity metrics as diagnostic signals, not quotas. Repository conventions, observable contracts, and the smallest verified design win; never extract code solely because of line, argument, branch, coverage, or duplication counts.
 - Read the relevant implementation, callers, configuration, and tests before editing.
 - Preserve public API and persisted-data compatibility unless the request explicitly changes them.

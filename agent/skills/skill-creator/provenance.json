@@ -1,0 +1,25 @@
+{
+  "repository": "https://github.com/anthropics/skills",
+  "revision": "9d630808e4add0a7146de4af9384155d5dee350a",
+  "path": "skills/skill-creator",
+  "license": "Apache-2.0",
+  "author": "Anthropic, PBC",
+  "installation": "One-time OMP adaptation; no upstream runtime or automatic updates",
+  "adaptations": [
+    "Rewrote the workflow for OMP-native skill discovery, authoring, readback, and explicit evaluation",
+    "Removed Claude-specific commands, runners, packaging, browser viewer, schemas, and agent prompts",
+    "Made ordinary creation/edits discovery-and-readback workflows rather than benchmark runs",
+    "Restricted model-backed evaluation to explicit requests and the global one-check/failure-stop policy",
+    "Added positive and near-miss routing examples, separated routing/behavior/style evidence, and required observed OMP/model version pins with no fabricated metrics"
+  ],
+  "additional_sources": [
+    {
+      "repository": "https://github.com/addyosmani/agent-skills",
+      "revision": "1401c8b8030e023baeebb31781a6653fe8e93026",
+      "path": "evals/README.md",
+      "license": "MIT",
+      "copyright": "Copyright (c) 2025 Addy Osmani",
+      "adaptation": "Used the distinction between trigger-routing and behavior evidence and the practice of recording model/runtime versions. Rewrote all procedures for OMP; no code copied."
+    }
+  ]
+}

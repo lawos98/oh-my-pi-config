@@ -1,0 +1,16 @@
+{
+  "repository": "https://github.com/mattpocock/skills",
+  "revision": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7",
+  "path": "skills/productivity/grilling",
+  "version": "1.2.3",
+  "license": "MIT",
+  "author": "Matt Pocock",
+  "installation": "One-time OMP adaptation; no upstream runtime or automatic updates",
+  "adaptations": [
+    "Changed frontier batching to exactly one question per turn",
+    "Uses the OMP ask tool with two to five options",
+    "Requires one recommendation and a simple comparison with alternatives",
+    "Explains every question and option for a complete beginner without patronizing language",
+    "Prevents implementation until the user confirms the result"
+  ]
+}

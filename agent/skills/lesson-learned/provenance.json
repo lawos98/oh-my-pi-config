@@ -1,0 +1,8 @@
+{
+  "upstream": "https://github.com/softaworks/agent-toolkit",
+  "commit": "3027f20f3181758385a1bb8c022d4041dfb4de84",
+  "license": "MIT",
+  "included": ["Adapted skills/lesson-learned/SKILL.md", "LICENSE"],
+  "excluded": ["mandatory reference catalogs", "default Git history sweep", "automatic memory capture"],
+  "adaptations": ["Natural-language request-scoped reflection", "Observed results distinguished from inference and unrun checks", "No automatic persistence or new commands"]
+}

@@ -1,0 +1,15 @@
+{
+  "repository": "https://github.com/mattpocock/skills",
+  "revision": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7",
+  "path": "skills/engineering/prototype",
+  "version": "1.2.3",
+  "license": "MIT",
+  "author": "Matt Pocock",
+  "installation": "One-time OMP adaptation; no upstream runtime or automatic updates",
+  "adaptations": [
+    "Uses OS-temporary artifacts by default",
+    "Requires approval before project-local prototype files",
+    "Removed automatic branch and commit behavior",
+    "Added OMP browser verification and mandatory cleanup"
+  ]
+}

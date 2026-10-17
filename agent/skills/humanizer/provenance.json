@@ -1,0 +1,15 @@
+{
+  "repository": "https://github.com/blader/humanizer",
+  "revision": "e2e92e7b4b8229253ed5c8e81dc65463fdeddda5",
+  "path": ".",
+  "version": "2.11.2",
+  "license": "MIT",
+  "author": "Siqi Chen",
+  "installation": "One-time OMP adaptation; excludes upstream host-specific plugin and CLI components",
+  "adaptations": [
+    "Restricted activation to explicitly named humanizer requests and requests to humanize or naturalize existing documentation.",
+    "Preserved the documentation-specific factual and technical content guarantees.",
+    "Routes ordinary anti-slop requests to stop-slop and plain-English technical explanations to simple-english.",
+    "Updated host wording to OMP."
+  ]
+}

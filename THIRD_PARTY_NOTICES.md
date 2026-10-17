@@ -6,10 +6,7 @@ Keep the source references and license notices in each skill. This repository is
 
 ## Ponytail
 
-Files:
-
-- `agent/skills/ponytail/SKILL.md`
-- `agent/skills/ponytail-review/SKILL.md`
+The public snapshot no longer vendors standalone Ponytail skills. The pinned `@dietrichgebert/ponytail@4.9.0` package supplies its skills, commands, and extension at installation time.
 
 Source: <https://github.com/DietrichGebert/ponytail>
 
@@ -17,7 +14,7 @@ Copyright (c) 2026 DietrichGebert.
 
 License: MIT.
 
-The source installation reported Ponytail `4.9.0`. The available local vendor metadata used inconsistent versions and a floating `main` reference. The repository does not claim an immutable source revision for these two files.
+The package version and dependency integrity are recorded in `plugins/package.json` and `plugins/bun.lock`. Preserve the package's own license notices if you redistribute its code.
 
 ## React performance
 
@@ -90,7 +87,7 @@ The local skill points to the floating `main` branch. It does not record an immu
 
 ## Remaining skills
 
-Several existing skills were created or merged locally and do not contain complete provenance metadata. Do not sublicense them as a single licensed work. New local skills without sufficient source and license information are excluded from this sync.
+Several existing skills were created or merged locally and do not contain complete provenance metadata. Their inclusion in a setup snapshot does not establish a blanket license grant or resolve missing upstream notices. Preserve all available source metadata and verify applicable rights before redistributing those files further.
 
 ## OMP 18.4.4 skill refresh
 
@@ -149,3 +146,17 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+## Complete portable skill assets
+
+This refresh includes the installed generic skill references, templates, images, licenses, and provenance that the earlier file allowlist omitted. It does not import new upstream implementations or claim that an MIT label by itself establishes authorship.
+
+- `writing-for-agents` retains Matt Pocock's MIT license and source revision `c55ee46073ed923f86ce59a5eb3b6d895095d1b7`, plus the additional Softaworks attribution recorded in its provenance.
+- React, Supabase, Stripe, and shadcn support files retain their embedded authorship and source links. Their existing provenance limitations are not resolved by this snapshot.
+- The public `deprecation-and-migration` description removes a reference to an excluded company-only skill. The public migration helper substitutes home-relative paths. These are local portability changes; the remaining source and attribution are retained.
+
+## Plugin and extension manifests
+
+`plugins/package.json`, `plugins/bun.lock`, and `plugins/omp-plugins.lock.json` record the existing installation's package versions, dependency integrity, and enabled state. Plugin runtime code, `node_modules`, marketplace caches, and generated machine-specific registries are not redistributed here. Installations remain subject to each package's own license and lifecycle behavior.
+
+The marketplace source revision and installation instructions are recorded in `README.md`. The marketplace manifests' fallback version `0.0.0` is not a substitute for that source pin.

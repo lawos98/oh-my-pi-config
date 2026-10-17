@@ -1,0 +1,34 @@
+{
+  "repository": "https://github.com/mattpocock/skills",
+  "revision": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7",
+  "path": "skills/productivity/writing-for-agents",
+  "version": "1.2.3",
+  "license": "MIT",
+  "author": "Matt Pocock",
+  "installation": "One-time OMP adaptation; no upstream runtime or automatic updates",
+  "adaptations": [
+    "Replaced Claude-specific invocation language with OMP mechanics",
+    "Made OMP global safety and execution policy authoritative",
+    "Condensed reference material and added pinned provenance requirements",
+    "Added explicit, scope-bounded audit/refactor guidance and positive/near-miss routing examples",
+    "Integrated evidence-led contradiction resolution, single authoritative ownership, progressive disclosure, and expert knowledge-delta criteria"
+  ],
+  "additional_sources": [
+    {
+      "repository": "https://github.com/softaworks/agent-toolkit",
+      "revision": "3027f20f3181758385a1bb8c022d4041dfb4de84",
+      "path": "skills/agent-md-refactor/SKILL.md",
+      "license": "MIT",
+      "copyright": "Copyright (c) 2026 Leonardo Flores",
+      "adaptation": "Used evidence-backed conflict resolution, one authoritative owner per rule, and progressive disclosure. Excluded fixed file-count, category, and line-count quotas."
+    },
+    {
+      "repository": "https://github.com/softaworks/agent-toolkit",
+      "revision": "3027f20f3181758385a1bb8c022d4041dfb4de84",
+      "path": "skills/skill-judge/SKILL.md",
+      "license": "MIT",
+      "copyright": "Copyright (c) 2026 Leonardo Flores",
+      "adaptation": "Retained knowledge-delta, appropriate-procedure, progressive-disclosure, and practical-usability questions. Excluded numeric scoring, category quotas, ratios, and grading gates."
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 ---
 name: deprecation-and-migration
-description: "Plan or carry out a scoped replacement of an old API, library, feature, service, or data format. Use for 'replace the legacy system', 'plan a safe cutover', 'remove the old implementation', or 'migrate consumers without breaking them'. General migration safety complements framework-specific skills such as andamio-migration; ordinary readability refactors use simplify."
+description: "Plan or carry out a scoped replacement of an old API, library, feature, service, or data format. Use for 'replace the legacy system', 'plan a safe cutover', 'remove the old implementation', or 'migrate consumers without breaking them'. General migration safety complements framework-specific migration guidance; ordinary readability refactors use simplify."
 license: MIT
 metadata:
   source: https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/deprecation-and-migration/SKILL.md

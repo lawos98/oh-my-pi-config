@@ -1,0 +1,20 @@
+{
+  "repository": "https://github.com/hardikpandya/stop-slop",
+  "revision": "8da1f030185bdfe8471220585162991eaeb970e9",
+  "path": ".",
+  "license": "MIT",
+  "author": "Hardik Pandya",
+  "upstream_files": [
+    "SKILL.md",
+    "references/phrases.md",
+    "references/structures.md",
+    "references/examples.md"
+  ],
+  "installation": "One-time OMP adaptation; no upstream runtime, commands, hooks, or automatic updates",
+  "adaptations": [
+    "Made the skill naturally discoverable for prose drafting and editing, including technical explanations, reports, emails, and documentation, plus direct anti-slop prompts.",
+    "Recast upstream patterns as contextual cues instead of blanket rules; removed absolute bans and scoring or rewrite loops.",
+    "Added preservation requirements for claims, scope, modal strength, warnings, uncertainty, identifiers, quotations, structured content, code, and links.",
+    "Directed explicitly named humanizer or naturalize-documentation requests to humanizer, and plain-English technical explanations to simple-english."
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "repository": "https://github.com/trailofbits/skills",
+  "revision": "d1f1575cff97816e5cc08af66cd2506099c681d3",
+  "path": "plugins/spec-to-code-compliance/skills/spec-to-code-compliance",
+  "license": "CC-BY-SA-4.0",
+  "author": "Trail of Bits",
+  "included": ["Adapted SKILL.md", "Adapted resources/DIVERGENCE_RUBRIC.md", "Adapted resources/DOMAIN_NOTES.md", "LICENSE"],
+  "excluded": ["plugin manifests", "commands", "scripts", "named agents", "report tree generator", "compulsory independent refutation pipeline"],
+  "adaptations": [
+    "Natural-language OMP routing and passive read-only requirement comparison",
+    "Explicit document authority, modal strength, execution paths, reverse-direction observations and coverage limits",
+    "Impact-based severity and no forced findings, automated review loops or unobserved coverage claims",
+    "Kept CC-BY-SA-4.0 attribution and share-alike terms separate from other skill licenses"
+  ],
+  "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "endorsement": "No upstream endorsement is implied"
+}

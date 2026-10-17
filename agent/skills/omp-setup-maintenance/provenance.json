@@ -1,0 +1,13 @@
+{
+  "source_type": "local user configuration",
+  "source_path": "agent/commands/omp-improve-setup.md",
+  "source_status": "Retired after the user confirmed migration to normal skill selection",
+  "installation": "Passive file-backed OMP skill; no new command, hook, runtime or installer",
+  "adaptations": [
+    "Natural-language triggers and balanced change control instead of command-only execution",
+    "Effective session/overlay values distinguished from stored defaults",
+    "Intentional mixed model roles, optional aliases and disabled verifiers no longer misclassified as drift",
+    "Bounded redacted inspection, no credential/history reads and no automatic auth retries",
+    "One-check/failure-stop policy, explicit privacy/authority choices and truthful fresh-session activation guidance"
+  ]
+}
