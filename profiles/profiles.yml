@@ -1,0 +1,240 @@
+# Single source for ohMyPi model settings, skills, and file commands.
+# Every type receives global skill, command, and MCP server lists plus its own. Duplicates are removed.
+defaults:
+  model: luna
+  type: backend
+
+models:
+  luna:
+    modelRoles:
+      default: "openai-codex/gpt-6-luna:auto"
+      plan: "openai-codex/gpt-6-luna:max"
+      slow: "openai-codex/gpt-6-luna:max"
+      task: "openai-codex/gpt-6-luna:high"
+      designer: "openai-codex/gpt-6-luna:high"
+      advisor: "openai-codex/gpt-6-luna:medium"
+      vision: "openai-codex/gpt-6-luna:medium"
+      smol: "openai-codex/gpt-6-luna:off"
+      commit: "openai-codex/gpt-6-luna:minimal"
+      tiny: "openai-codex/gpt-6-luna:off"
+  astra:
+    modelRoles:
+      default: "openai-codex/gpt-6-astra:low"
+      plan: "openai-codex/gpt-6-astra:low"
+      slow: "openai-codex/gpt-6-astra:low"
+      task: "openai-codex/gpt-6-astra:low"
+      designer: "openai-codex/gpt-6-astra:low"
+      advisor: "openai-codex/gpt-6-astra:low"
+      vision: "openai-codex/gpt-6-astra:low"
+      smol: "openai-codex/gpt-6-astra:low"
+      commit: "openai-codex/gpt-6-astra:low"
+      tiny: "openai-codex/gpt-6-astra:low"
+  sol:
+    modelRoles:
+      default: "openai-codex/gpt-6.1-sol:low"
+      plan: "openai-codex/gpt-6.1-sol:low"
+      slow: "openai-codex/gpt-6.1-sol:low"
+      task: "openai-codex/gpt-6.1-sol:low"
+      designer: "openai-codex/gpt-6.1-sol:low"
+      advisor: "openai-codex/gpt-6.1-sol:low"
+      vision: "openai-codex/gpt-6.1-sol:low"
+      smol: "openai-codex/gpt-6.1-sol:low"
+      commit: "openai-codex/gpt-6.1-sol:low"
+      tiny: "openai-codex/gpt-6.1-sol:low"
+  f2p:
+    settings:
+      tools:
+        xdev: true
+        xdevDocs: builtins
+        xdevInlineDevices: []
+      compaction:
+        enabled: true
+        autoContinue: false
+      model:
+        toolCallLoopGuard:
+          enabled: true
+          threshold: 2
+    instructions: |
+      Prefer read for static pages and the built-in browser helpers through eval for interactive pages.
+      Read xd://eval/browser before using browser helpers; do not replace them with a custom CDP WebSocket script.
+      Inspect the current page and report observed state before choosing an action.
+      Do not repeat an action without new evidence that it will advance the task.
+      If an attempt makes no progress, explain the blocker and stop rather than retrying with cosmetic changes.
+      If raw CDP is genuinely necessary, match responses by request id, handle protocol errors,
+      and read Runtime.evaluate values from response.result.result.value; an unrelated event or missing value is not proof of failure.
+      Tool schemas remain available on demand: read xd:// to discover tools and read the selected device before invoking it.
+    modelRoles:
+      default: "lm-studio/qwen3.6-uncensored"
+      plan: "lm-studio/qwen3.6-uncensored"
+      slow: "lm-studio/qwen3.6-uncensored"
+      task: "lm-studio/qwen3.6-uncensored"
+      designer: "lm-studio/qwen3.6-uncensored"
+      advisor: "lm-studio/qwen3.6-uncensored"
+      vision: "lm-studio/qwen3.6-uncensored"
+      smol: "lm-studio/qwen3.6-uncensored"
+      commit: "lm-studio/qwen3.6-uncensored"
+      tiny: "lm-studio/qwen3.6-uncensored"
+
+global:
+  skills:
+    - i-have-adhd
+    - grill-me
+    - stop-slop
+    - simple-english
+    - humanizer
+    - caveman
+    - ponytail
+    - ponytail-review
+    - session-handoff
+    - lesson-learned
+    - arena
+    - archify
+    - hyperframes
+    - service-documentation
+  commands:
+    - pr-review
+    - learn
+    - developer-docs
+    - arena
+  mcpServers:
+    - context7:context7
+    - github:github
+
+types:
+  backend:
+    mcpServers:
+      - gitnexus
+      - jetbrains-ide
+    skills:
+      - code-research
+      - web-research
+      - code-review
+      - software-architecture
+      - codebase-design
+      - improve-codebase-architecture
+      - feature-design
+      - prototype
+      - domain-modeling
+      - systematic-debugging
+      - simplify
+      - refactoring-specialist
+      - testing
+      - test-driven-development
+      - spec-to-code-compliance
+      - deprecation-and-migration
+      - kotlin-functional-style
+      - kotlin-quality-gates
+      - kotlin-spring-backend
+      - jackson-kotlin-serialization-specialist
+      - kotlin-spring-proxy-compatibility
+      - gradle-kotlin-dsl-doctor
+      - ktor-backend
+      - ktor-runtime-troubleshooting
+      - reactive-kotlin
+      - api-design
+      - api-robustness
+      - database-architect
+      - mongodb-optimizer
+      - supabase-postgres-best-practices
+      - infrastructure-review
+      - observability-engineering
+      - external-supply-chain-review
+      - documentation-and-adrs
+      - quick-pr-creator
+      - resolving-merge-conflicts
+      - writing-for-agents
+    commands:
+      - pr-comments
+      - simplify-code
+
+  frontend:
+    mcpServers:
+      - gitnexus
+      - jetbrains-ide
+      - penpot
+      - comfy-local
+    skills:
+      - code-research
+      - web-research
+      - feature-design
+      - prototype
+      - typescript-javascript-clean-code
+      - react-best-practices
+      - product-ui-engineering
+      - design-taste-frontend
+      - frontend-testing-debugging
+      - impeccable
+      - ui-ux-pro-max
+      - shadcn
+      - api-design
+      - api-robustness
+      - software-architecture
+      - codebase-design
+      - code-review
+      - systematic-debugging
+      - testing
+      - test-driven-development
+      - simplify
+      - refactoring-specialist
+      - spec-to-code-compliance
+      - deprecation-and-migration
+      - external-supply-chain-review
+      - documentation-and-adrs
+      - quick-pr-creator
+      - resolving-merge-conflicts
+    commands:
+      - pr-comments
+      - simplify-code
+
+  ux:
+    mcpServers:
+      - penpot
+      - comfy-local
+    skills:
+      - feature-design
+      - customer-evidence
+      - domain-modeling
+      - web-research
+      - design-taste-frontend
+      - impeccable
+      - ui-ux-pro-max
+      - penpot-design-studio
+      - penpot-uiux-design
+      - product-ui-engineering
+      - frontend-testing-debugging
+      - typescript-javascript-clean-code
+      - prototype
+      - documentation-and-adrs
+      - external-supply-chain-review
+    commands: []
+
+  pm:
+    mcpServers: []
+    skills:
+      - feature-design
+      - customer-evidence
+      - business-economics
+      - domain-modeling
+      - web-research
+      - code-research
+      - spec-to-code-compliance
+      - documentation-and-adrs
+    commands: []
+
+  research:
+    mcpServers:
+      - rea
+      - gitnexus
+    skills:
+      - web-research
+      - code-research
+      - reverse-engineering
+      - media-knowledge
+      - customer-evidence
+      - business-economics
+      - domain-modeling
+      - documentation-and-adrs
+      - external-supply-chain-review
+    commands: []
+
+

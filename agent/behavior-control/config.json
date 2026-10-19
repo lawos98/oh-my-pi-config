@@ -1,6 +1,0 @@
-{
-  "verifier": {
-    "provider": "openai-codex",
-    "id": "gpt-6.1-sol"
-  }
-}

@@ -1,0 +1,16 @@
+{
+  "source": "https://github.com/Jakeschincariol/arena-skill",
+  "commit": "df07b8e518e10cdecd8cd7712d9958b6f396250e",
+  "author": "Jake Schincariol",
+  "license": "MIT",
+  "sourceFiles": ["skills/arena/SKILL.md", "skills/arena/rubric.md", "LICENSE"],
+  "adaptations": [
+    "Text-only OMP workflow using native task delegation; no executable upstream code or dependencies installed.",
+    "Explicit natural-language opt-in; dissatisfaction and installation discussion do not activate it.",
+    "Five user-requested approach priorities by default: simplest, resource-optimal, readable, fast/elegant, experimental; fewer on explicit request. Maximum four concurrent workers, one critique phase, main-agent evidence-based synthesis.",
+    "No tournament, automatic retries, replacement judges, numeric scoring, or permission changes.",
+    "Comparison workers do not edit production files or run checks; existing execution and team policies remain authoritative.",
+    "Incomplete worker results remain incomplete comparisons; unsupported judgments are not verified memories."
+  ],
+  "excluded": ["skills/arena/bracket.py", "skills/arena/strategies.json", ".claude-plugin", "tests/test_bracket.py"]
+}

@@ -1,0 +1,8 @@
+{
+  "repository": "https://github.com/pbakaus/impeccable",
+  "commit": "c74755d920985f7a92cef691ca970ba95f90126e",
+  "path": ".pi/skills/impeccable",
+  "accessed": "2026-10-01",
+  "license": "Apache-2.0",
+  "local_changes": "Absolute OMP install paths, Penpot execution routing, and existing project authority; preserved original SKILL.md."
+}

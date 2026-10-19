@@ -1,0 +1,26 @@
+{
+  "name": "kotlin-spring-proxy-compatibility",
+  "decision": "adapt-selected-parts",
+  "source_repository": "https://github.com/yalishevant/kotlin-backend-agent-skills",
+  "source_commit": "fd0ed521d22efd28221d532c9abab97af0b9bf0e",
+  "source_path": ".agents/skills/kotlin-spring-proxy-compatibility/SKILL.md",
+  "source_url": "https://github.com/yalishevant/kotlin-backend-agent-skills/blob/fd0ed521d22efd28221d532c9abab97af0b9bf0e/.agents/skills/kotlin-spring-proxy-compatibility/SKILL.md",
+  "license": "MIT",
+  "copyright": "Copyright (c) 2026 Anton Yalyshev",
+  "license_url": "https://github.com/yalishevant/kotlin-backend-agent-skills/blob/fd0ed521d22efd28221d532c9abab97af0b9bf0e/LICENSE",
+  "reviewed_on": "2026-10-17",
+  "review_scope": "Named passive skill body and repository license at immutable revision; no repository code executed or runtime adopted.",
+  "adaptations": [
+    "Preserve repository version authority and smallest evidenced fix",
+    "Exclude JPA/Hibernate and Java migration guidance",
+    "Respect session-controlled checks and stop-on-failure; no automatic repeated Gradle checks",
+    "Keep framework-specific ownership and Spring request-boundary validation"
+  ],
+  "runtime_dependencies": [],
+  "hooks": [],
+  "commands": [],
+  "network_at_runtime": false,
+  "residual_risks": [
+    "Guidance is not framework execution; API recommendations must be checked against each target repository version."
+  ]
+}

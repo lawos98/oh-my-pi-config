@@ -12,6 +12,8 @@ task:
   maxRecursionDepth: 1
   maxEffort: high
   prewalk: false
+  enableLsp: true
+  showResolvedModelBadge: true
 compaction:
   enabled: true
   midTurnEnabled: true
@@ -44,6 +46,7 @@ cycleOrder:
 symbolPreset: nerd
 composer:
   shape: band
+  tokenRate: true
 theme:
   dark: titanium
   light: obsidian
@@ -53,9 +56,18 @@ steeringMode: one-at-a-time
 tools:
   approvalMode: yolo
 memory:
-  backend: "off"
+  backend: mnemopi
+mnemopi:
+  scoping: per-project
+  autoRecall: true
+  autoRetain: true
+  retainEveryNTurns: 4
+  recallLimit: 5
+  injectionTokenLimit: 2000
+  noEmbeddings: true
+  llmMode: none
 autolearn:
-  enabled: false
+  enabled: true
   autoContinue: false
 edit:
   mode: hashline
@@ -68,8 +80,10 @@ statusLine:
   separator: powerline
   contextLine: embedded
   transparent: false
+  showHookStatus: false
   leftSegments:
     - pi
+    - status
     - model
     - mode
     - collab
@@ -104,6 +118,7 @@ display:
   shimmer: classic
   showTokenUsage: true
   showTurnTime: true
+  pinnedAgents: collapsed
 retry:
   maxRetries: 3
 prewalk:
@@ -120,3 +135,8 @@ hideThinkingBlock: true
 isolation:
   backend: auto
 followUpMode: one-at-a-time
+marketplace:
+  autoUpdate: notify
+generate_image:
+  enabled: true
+externalThinking: false

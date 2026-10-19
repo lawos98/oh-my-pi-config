@@ -129,9 +129,9 @@ Do not write reports, screenshots, traces, or temporary scripts into the repo un
 
 ## Related Skills
 
-- Use `frontend-app-builder` when the task is design creation, redesign, or fidelity to an accepted concept.
+- Use `product-ui-engineering` for implementation and fidelity to an accepted design; use the selected frontend/UX design skills for design creation or redesign.
 - Use `react-best-practices` after meaningful React/Next.js component edits.
-- Do not invoke Image Gen for ordinary debugging. Use it only when the task requires creating or revising visual assets, or when `frontend-app-builder` is already driving a concept-to-implementation fidelity loop.
+- Do not invoke image generation for ordinary debugging. Use it only when the task requires creating or revising visual assets and an authorized image tool is available.
 
 ## Final Response
 

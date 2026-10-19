@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Request acknowledgement and asynchronous completion</title>
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; color: #f1f5f9; background: #0f172a; font: 25px/1.5 system-ui, sans-serif; }
+#sequence { width: 1280px; height: 720px; padding: 48px; }
+h1 { font-size: 42px; line-height: 1.2; margin: 0 0 20px; }
+ol { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; padding: 0; list-style-position: inside; }
+li { padding: 24px; border: 3px solid #94a3b8; border-radius: 12px; background: #1e293b; }
+li strong { display: block; margin: 12px 0; }
+.evidence { font-size: 22px; }
+.controls { padding: 16px 48px; }
+button { font: inherit; padding: 8px 18px; }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<main id="sequence" data-composition-id="sequence" data-no-timeline data-start="0" data-duration="6" data-width="1280" data-height="720">
+<h1>Accepted does not mean completed</h1>
+<p>Read left to right: acknowledgement precedes asynchronous processing.</p>
+<ol>
+<li><strong>1. Submit request</strong>The client sends a job to the API.</li>
+<li><strong>2. Acknowledge</strong>The API returns an accepted response and a job identifier.</li>
+<li><strong>3. Complete later</strong>The worker finishes; the client reads job status.</li>
+</ol>
+<p class="evidence"><strong>Assumption / illustrative example:</strong> This is a conceptual sequence, not a verified description of a repository or a timing measurement. All three steps remain visible without motion.</p>
+</main>
+<div class="controls"><button type="button" id="play">Play emphasis</button> <button type="button" id="still">Still</button></div>
+<script>
+const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+const animations = reduced.matches ? [] : Array.from(document.querySelectorAll('li'), (card, index) => {
+  const animation = card.animate([
+    { borderColor: '#94a3b8', backgroundColor: '#1e293b' },
+    { borderColor: '#38bdf8', backgroundColor: '#164e63', offset: 0.25 },
+    { borderColor: '#38bdf8', backgroundColor: '#164e63', offset: 0.75 },
+    { borderColor: '#94a3b8', backgroundColor: '#1e293b' }
+  ], { duration: 2000, delay: index * 2000, iterations: 1, fill: 'both' });
+  animation.pause();
+  animation.currentTime = 0;
+  return animation;
+});
+document.getElementById('play').addEventListener('click', () => {
+  if (reduced.matches) return;
+  for (const animation of animations) { animation.currentTime = 0; animation.play(); }
+});
+function still() { for (const animation of animations) { animation.pause(); animation.currentTime = 0; } }
+document.getElementById('still').addEventListener('click', still);
+reduced.addEventListener('change', still);
+</script>
+</body>
+</html>

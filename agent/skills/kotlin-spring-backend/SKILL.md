@@ -16,6 +16,8 @@ Before editing, inspect the repository's build, configuration, package structure
 
 When a repository has mixed boundaries, document the boundary and keep one execution model inside each path. Advice below is conditional: apply only the parts supported by the discovered versions, starters, and deployment.
 
+Use `jackson-kotlin-serialization-specialist` for mapper/wire-contract failures, `kotlin-spring-proxy-compatibility` for interception and self-invocation problems, and `gradle-kotlin-dsl-doctor` for build-model failures. Keep general service implementation here. Ktor services belong to `ktor-backend`; their runtime plugin mechanics belong to `ktor-runtime-troubleshooting`, not Spring proxy guidance.
+
 ## Design
 
 Keep controllers thin. Put business invariants in domain/application services and persistence mechanics behind repositories or gateways. Prefer explicit types and boundaries over reflection-heavy or generic abstractions. Reuse an existing dependency and configuration convention before adding another one.
@@ -25,6 +27,7 @@ Keep controllers thin. Put business invariants in domain/application services an
 - Group related settings in immutable, typed `@ConfigurationProperties` classes using the repository's existing registration and constructor-binding style. Prefer types such as `Duration`, `URI`, and `DataSize` over unvalidated strings.
 - If the repository includes Spring's validation support, validate configuration at startup with its established `@Validated`/Bean Validation pattern. Required, unsafe, or mutually inconsistent values should fail startup rather than silently fall back.
 - Trace profile and environment overrides, and keep secrets in the repository's existing secret-management path. Never log bound properties, credentials, tokens, or complete connection strings; ensure management endpoints redact them.
+- Validate request data classes with Jakarta Bean Validation annotations and `@Valid` on receiving Spring endpoints, using the repository's existing boundary error handling. Keep request validation out of domain/service `require` or `check` guards; retain genuine business invariants explicitly.
 
 ### Transactions
 
@@ -57,7 +60,7 @@ If it uses another store, follow that store's existing adapter, transaction, mig
 
 ## Testing and verification
 
-Use the build tool and wrapper that the repository actually provides (`./gradlew`, `./mvnw`, or its documented equivalent); discover the narrowest applicable tasks instead of assuming Gradle task names. Run focused tests for changed behavior and the repository's configured quality gates.
+Use the build tool and wrapper that the repository actually provides (`./gradlew`, `./mvnw`, or its documented equivalent); discover the narrowest applicable task instead of assuming Gradle task names. Add focused tests for changed behavior. Execution is governed by session policy and coordinator authorization: do not automatically run tests, builds, quality gates or formatters, and do not repeat or substitute commands after a failed check. Report unrun checks as unrun.
 
 For integration tests, use the real service when behavior depends on wire protocols, mapping, indexes, aggregation, transactions, or broker semantics. When the discovered Spring Boot version supports `@ServiceConnection` and the matching Testcontainers integration is already present, use the repository's existing service-connection pattern. Otherwise retain its established dynamic-property or environment wiring; do not add Testcontainers or another library solely to follow this guidance. Never replace persistence behavior with an in-memory fake.
 

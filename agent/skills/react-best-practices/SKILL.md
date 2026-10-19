@@ -8,7 +8,9 @@ metadata:
 
 # Vercel React Best Practices
 
-Comprehensive performance optimization guide for React and Next.js applications, maintained by Vercel. Contains 64 rules across 8 categories, prioritized by impact to guide automated refactoring and code generation.
+Locally adapted React and Next.js performance guidance from Vercel. Contains 70 rules across 8 categories. Apply rules only where the repository's versions, behavior, and measured needs support them; impact labels are priorities, not measured gains for this project.
+
+For performance investigations and changes, first read [the measurement and verification workflow](performance-workflow.md). Preserve the repository's architecture and caching model; use the rules below where evidence supports them, not as a mandate to add dependencies or memoization. Global execution limits remain authoritative.
 
 ## When to Apply
 
@@ -41,6 +43,7 @@ Reference these guidelines when:
 - `async-dependencies` - Use better-all for partial dependencies
 - `async-api-routes` - Start promises early, await late in API routes
 - `async-suspense-boundaries` - Use Suspense to stream content
+- `async-cheap-condition-before-await` - Check cheap guards before optional async work; preserve required side effects
 
 ### 2. Bundle Size Optimization (CRITICAL)
 
@@ -49,6 +52,7 @@ Reference these guidelines when:
 - `bundle-defer-third-party` - Load analytics/logging after hydration
 - `bundle-conditional` - Load modules only when feature is activated
 - `bundle-preload` - Preload on hover/focus for perceived speed
+- `bundle-analyzable-paths` - Keep import and server file paths statically analyzable
 
 ### 3. Server-Side Performance (HIGH)
 
@@ -60,6 +64,8 @@ Reference these guidelines when:
 - `server-serialization` - Minimize data passed to client components
 - `server-parallel-fetching` - Restructure components to parallelize fetches
 - `server-after-nonblocking` - Use after() for non-blocking operations
+- `server-no-shared-module-state` - Isolate user and request data from process-wide state
+- `server-parallel-nested-fetching` - Chain dependencies per item without unbounded concurrency
 
 ### 4. Client-Side Data Fetching (MEDIUM-HIGH)
 
@@ -115,12 +121,14 @@ Reference these guidelines when:
 - `js-set-map-lookups` - Use Set/Map for O(1) lookups
 - `js-tosorted-immutable` - Use toSorted() for immutability
 - `js-flatmap-filter` - Use flatMap to map and filter in one pass
+- `js-request-idle-callback` - Defer only optional work with support detection and cancellation
 
 ### 8. Advanced Patterns (LOW)
 
 - `advanced-event-handler-refs` - Store event handlers in refs
 - `advanced-init-once` - Initialize app once per app load
 - `advanced-use-latest` - useLatest for stable callback refs
+- `advanced-effect-event-deps` - Keep actual reactive dependencies; omit Effect Events where supported
 
 ## How to Use
 
@@ -137,6 +145,6 @@ Each rule file contains:
 - Correct code example with explanation
 - Additional context and references
 
-## Full Compiled Document
+## Detailed references
 
-For the complete guide with all rules expanded: `AGENTS.md`
+`rules/` is the maintained source of truth. `AGENTS.md` preserves the original compiled reference and links the six local additions; consult the individual rules and `performance-workflow.md` for local safeguards and version boundaries.

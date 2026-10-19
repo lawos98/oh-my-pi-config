@@ -18,7 +18,7 @@ The package version and dependency integrity are recorded in `plugins/package.js
 
 ## React performance
 
-File: `agent/managed-skills/react-performance/SKILL.md`
+File: `agent/skills/react-best-practices/performance-workflow.md`
 
 Source: <https://github.com/vercel-labs/agent-skills/blob/063bee94c3f4df8453406c830b0a7df0f2860278/skills/react-best-practices/SKILL.md>
 
@@ -28,7 +28,7 @@ This file is a narrow adaptation of Vercel's React best-practice guidance.
 
 ## Simple English
 
-File: `agent/managed-skills/simple-english/SKILL.md`
+File: `agent/skills/simple-english/SKILL.md`
 
 Source: <https://github.com/AminBlg/SimpleEnglish/tree/8e8a008a13e4b478f9ccc20ca16e79aef66c0739>
 
@@ -38,7 +38,7 @@ License: MIT. The skill contains the source attribution and MIT permission notic
 
 ## Infrastructure review
 
-File: `agent/managed-skills/infrastructure-review/SKILL.md`
+File: `agent/skills/infrastructure-review/SKILL.md`
 
 Adapted sources:
 
@@ -52,7 +52,7 @@ MPL-2.0 can impose file-level source and notice duties. Review those duties befo
 
 ## Observability engineering
 
-File: `agent/managed-skills/observability-engineering/SKILL.md`
+File: `agent/skills/observability-engineering/SKILL.md`
 
 Adapted sources:
 
@@ -62,7 +62,7 @@ Adapted sources:
 
 ## External supply-chain review
 
-File: `agent/managed-skills/external-supply-chain-review/SKILL.md`
+File: `agent/skills/external-supply-chain-review/SKILL.md`
 
 Adapted sources:
 
@@ -102,7 +102,7 @@ The following skills retain their source revisions and redistribution notices in
 | `spec-to-code-compliance` | trailofbits/skills, `d1f1575cff97816e5cc08af66cd2506099c681d3` | CC BY-SA 4.0 |
 | `skill-creator` | anthropics/skills, `9d630808e4add0a7146de4af9384155d5dee350a` | Apache-2.0 |
 
-These are modified passive OMP adaptations; their provenance files describe the modifications. `spec-to-code-compliance` retains Trail of Bits attribution, its license URL, and ShareAlike terms. `skill-creator` replaces the former Claude-specific evaluation runners with an OMP workflow and retains `LICENSE.txt`. `omp-setup-maintenance` is migrated local configuration, not a newly imported third-party package.
+These are modified OMP adaptations; their provenance files describe the modifications. `spec-to-code-compliance` retains Trail of Bits attribution, its license URL, and ShareAlike terms. `skill-creator` retains its supporting scripts, references, `LICENSE.txt`, and `NOTICE.txt`; its execution remains subject to OMP approval policy.
 
 
 ## Documentation and ADRs
@@ -152,11 +152,39 @@ SOFTWARE.
 This refresh includes the installed generic skill references, templates, images, licenses, and provenance that the earlier file allowlist omitted. It does not import new upstream implementations or claim that an MIT label by itself establishes authorship.
 
 - `writing-for-agents` retains Matt Pocock's MIT license and source revision `c55ee46073ed923f86ce59a5eb3b6d895095d1b7`, plus the additional Softaworks attribution recorded in its provenance.
-- React, Supabase, Stripe, and shadcn support files retain their embedded authorship and source links. Their existing provenance limitations are not resolved by this snapshot.
-- The public `deprecation-and-migration` description removes a reference to an excluded company-only skill. The public migration helper substitutes home-relative paths. These are local portability changes; the remaining source and attribution are retained.
+- React, Supabase, and shadcn support files retain their embedded authorship and source links. Their existing provenance limitations are not resolved by this snapshot.
+- The public export omits organization-specific skills and runtime state. Home-relative paths replace workstation paths; Chromium adapters require an explicitly selected `CHROME_PATH`. Historical acceptance evidence in provenance is not verification of this export.
 
 ## Plugin and extension manifests
 
 `plugins/package.json`, `plugins/bun.lock`, and `plugins/omp-plugins.lock.json` record the existing installation's package versions, dependency integrity, and enabled state. Plugin runtime code, `node_modules`, marketplace caches, and generated machine-specific registries are not redistributed here. Installations remain subject to each package's own license and lifecycle behavior.
 
-The marketplace source revision and installation instructions are recorded in `README.md`. The marketplace manifests' fallback version `0.0.0` is not a substitute for that source pin.
+Use the plugin guide for installation and source-pin details. A marketplace fallback version `0.0.0` is not a substitute for an immutable source pin.
+
+## Portable refresh: 2026-10-19
+
+The following additions preserve licenses and source metadata in their skill directories. These are recorded upstream terms, not a blanket clearance for all assets or downstream uses.
+
+| Component | Source revision | Recorded license |
+| --- | --- | --- |
+| Archify | [tt-a1i/archify](https://github.com/tt-a1i/archify/tree/68be1e0971208ef0b1550ec3b29f3d4d177f3cd6) | MIT; separate font and brand-mark terms |
+| HyperFrames adapter and lock | [heygen-com/hyperframes](https://github.com/heygen-com/hyperframes/tree/7735338b49ed6e11c227b0710da3bd35c3366b9c) | Apache-2.0; runtime packages not bundled |
+| Taste | [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill/tree/f624f37a8c650b9cc550253104925efe4c8de246) | MIT; photo/font rights separate |
+| Impeccable | [pbakaus/impeccable](https://github.com/pbakaus/impeccable/tree/c74755d920985f7a92cef691ca970ba95f90126e) | Apache-2.0 |
+| Arena | [Jakeschincariol/arena-skill](https://github.com/Jakeschincariol/arena-skill/tree/df07b8e518e10cdecd8cd7712d9958b6f396250e) | MIT |
+| Gradle, Jackson and Spring proxy specialists | [yalishevant/kotlin-backend-agent-skills](https://github.com/yalishevant/kotlin-backend-agent-skills/tree/fd0ed521d22efd28221d532c9abab97af0b9bf0e) | MIT, copyright 2026 Anton Yalyshev |
+| Penpot UI/UX | [github/awesome-copilot](https://github.com/github/awesome-copilot/tree/d6131471b85fbb4799e64175ebc42c9309ecc28a) | MIT |
+| UI UX Pro Max | [nextlevelbuilder/ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/tree/09170eec67eefd46a7ae85de61b40c194020f997) | MIT |
+
+Ktor implementation and runtime troubleshooting are locally authored guidance based on linked official documentation; their provenance states that upstream text and code were not vendored. `service-documentation` is also locally authored. It records Zensical 0.0.71 at commit `786383193ba87e7091456e3e30926375b1510127`, under MIT. Only configuration, instructions and dependency locks are included, not Zensical or its dependency binaries.
+
+### Separate asset terms and unresolved issues
+
+- Archify's [third-party notices](agent/skills/archify/THIRD_PARTY_NOTICES.md) and font license are retained. Brand vectors include attribution, ShareAlike, non-commercial and trademark restrictions. In particular, the recorded Vue artwork terms are CC BY-NC-SA 4.0. Do not infer commercial redistribution rights from Archify's MIT license.
+- Taste's photo and font URLs do not transfer asset rights. Review the provider's terms before downloading or publishing assets.
+- HyperFrames' lock includes packages with LGPL and other licenses. Dependencies and native binaries are not redistributed here; installation and any later redistribution require their own review.
+- React's existing missing-license-text concern remains unresolved. Supabase, shadcn and locally merged skills with incomplete provenance also remain unresolved; preserving files does not establish redistribution clearance.
+- `grill-me`, `prototype` and `improve-codebase-architecture` record MIT upstream provenance but do not carry standalone license files in the installed source. Review and preserve the applicable upstream copyright and permission text before further redistribution.
+- Existing MPL-2.0 and CC BY-SA obligations noted above still apply. This export does not resolve missing source notices or certify compliance.
+
+Public portability modifications replace personal paths, require explicit browser selection, remove unavailable company-skill references and omit a project-specific Penpot reference. Generated renders, dependencies, runtime state and private acceptance reports are excluded. Upstream originals and available licenses remain alongside adaptations.

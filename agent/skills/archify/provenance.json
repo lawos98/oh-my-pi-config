@@ -1,0 +1,48 @@
+{
+  "component": "archify",
+  "version": "3.1.0",
+  "source": "https://github.com/tt-a1i/archify",
+  "commit": "68be1e0971208ef0b1550ec3b29f3d4d177f3cd6",
+  "subtree": "archify/",
+  "sourceArchiveSha256": "1ba313748440c1425f20ca07f7765e4a5e369f77cbc460312aaf7a1368aee685",
+  "license": "MIT",
+  "reviewDate": "2026-10-17",
+  "decision": "Adopt pinned local runtime; adapt focused routing",
+  "import": "Complete archify subtree. SKILL.md preserved as SKILL.upstream.md; focused SKILL.md and generate.mjs added. No upstream source changes.",
+  "review": {
+    "manifests": [
+      "archify/package.json",
+      "archify/package-lock.json"
+    ],
+    "entrypoints": [
+      "archify/bin/archify.mjs",
+      "archify/bin/preview.mjs",
+      "archify/bin/delivery-update.mjs"
+    ],
+    "runtimeDependencies": "Node built-ins and pre-generated validators/icons; no npm installation required. PNG export reuses sibling hyperframes/runtime puppeteer-core.",
+    "excludedExecution": [
+      "development generators",
+      "update checks",
+      "brand URL capture",
+      "upstream skill installation instructions"
+    ],
+    "network": "Renderer is local. Adapter disables update checks; PNG browser aborts non-file/data/blob requests. Raw CLI update/brand commands remain present but outside admitted workflow.",
+    "storage": "Caller-selected outputs and upstream renderer atomic-output sidecars; no global service.",
+    "licenses": [
+      "LICENSE",
+      "THIRD_PARTY_NOTICES.md",
+      "assets/JetBrainsMono-OFL.txt"
+    ]
+  },
+  "verification": {
+    "status": "local acceptance completed 2026-10-17",
+    "evidence": "Generated HTML, PNG and Markdown. Exercised theme switching, keyboard node activation and Redis search/focus. SVG export parsed successfully and retained all ten node labels. Unfocused reduced-motion view reported zero animations; readable diagram observed in browser.",
+    "limitations": "SVG download payload was observed through the actual export action; browser download-list tracking returned no entries. PNG generation passed; other export formats and full assistive-technology audit were not exercised. Reduced-motion initial view had zero animations; focused view retained seven finite 180ms transitions, so this is not a zero-motion guarantee."
+  },
+  "acceptance": "node $HOME/.omp/agent/skills/archify/generate.mjs architecture $HOME/.omp/agent/skills/archify/examples/omp-static.architecture.json /tmp/omp-documentation-acceptance/system.html",
+  "risks": [
+    "Local generation and interaction were exercised; this does not establish browser sandbox security or exhaustive diagram-type accessibility.",
+    "Static preview requires sibling HyperFrames runtime.",
+    "Brand vector use retains individual trademark/license restrictions."
+  ]
+}

@@ -14,7 +14,19 @@ January 2026
 
 ## Abstract
 
-Comprehensive performance optimization guide for React and Next.js applications, designed for AI agents and LLMs. Contains 40+ rules across 8 categories, prioritized by impact from critical (eliminating waterfalls, reducing bundle size) to incremental (advanced patterns). Each rule includes detailed explanations, real-world examples comparing incorrect vs. correct implementations, and specific impact metrics to guide automated refactoring and code generation.
+This compiled reference preserves the original 64 rules. The maintained collection has 70 rules: the six additions below live in individual files rather than duplicating their adapted text here. Read `performance-workflow.md` first; local execution policy and version-aware safeguards apply throughout.
+
+### Local additions
+
+- [Cheap conditions before async work](rules/async-cheap-condition-before-await.md)
+- [Statically analyzable paths](rules/bundle-analyzable-paths.md)
+- [Request-data isolation](rules/server-no-shared-module-state.md)
+- [Parallel nested fetching](rules/server-parallel-nested-fetching.md)
+- [Optional idle scheduling](rules/js-request-idle-callback.md)
+- [Effect Event dependencies](rules/advanced-effect-event-deps.md)
+
+For modern `useEffectEvent`, the dedicated rule above governs version support, invocation restrictions, and dependencies. Do not interpret this older compilation's “stable callback refs” heading as a guarantee of Effect Event identity or as permission to call Effect Events outside Effects.
+
 
 ---
 

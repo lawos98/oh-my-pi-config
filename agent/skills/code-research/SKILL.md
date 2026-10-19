@@ -42,9 +42,10 @@ Systematic protocol for understanding code — local codebase, remote repos, lib
 | `read` | Known URLs and source files |
 | `web_search` | Current discovery across the web |
 | Context7 MCP tools | Current official library documentation and examples |
-| `librarian` agent | Multi-source documentation and open-source research |
 
 ## Research Protocol
+
+Choose the smallest discovery path that answers the question; the phases and tools below are alternatives, not a mandatory sequence. Follow RULES.md's correctness-first efficiency and delegation policy.
 
 ### Phase 1: Scope the Question
 
@@ -55,7 +56,7 @@ Before searching, classify what you need:
 | "What does X do?" | LSP definition → Read → GitNexus context | Follow the code |
 | "What calls X?" | LSP references → GitNexus context | Trace callers up |
 | "How does data flow through?" | LSP + GitNexus + Read | Trace entry to exit |
-| "How do other projects do X?" | Librarian + web search | External research |
+| "How do other projects do X?" | Context7 / read / web_search | External research |
 | "What's the architecture?" | GitNexus → glob → Read | Top-down |
 | "Why does X behave this way?" | Read + repository history | Code and history |
 
@@ -65,16 +66,16 @@ Before searching, classify what you need:
 
 **Layer 2 — Semantics:** use `lsp` definitions, references, implementations, and type information. Use `ast_edit` only when structural matching is necessary.
 
-**Layer 3 — Graph:** use GitNexus context, query, trace, and impact tools for cross-module flows.
+**Layer 3 — Graph:** use GitNexus when an unresolved cross-module relationship benefits from graph evidence. Crossing a module boundary alone does not require a second lookup after LSP and source inspection already establish the relationship.
 
 **Layer 4 — Parallel breadth:** dispatch one batched `task` call with independent `scout` assignments. Keep searches read-only and give each scout a distinct target.
 
 ### Phase 3: External discovery
 
-- Use Context7 through the `librarian` for current library documentation.
+- Use Context7 directly for current library documentation; verify version-sensitive claims against the applicable version.
 - Use `read` for known official URLs and source files.
 - Use `web_search` for discovery when no known URL is available.
-- Delegate multi-source or open-source comparison to the `librarian`.
+- Keep external research inline unless substantial independent slices justify delegation under RULES.md. Use only an available, permitted agent.
 - Prefer primary sources and verify version-sensitive claims before reporting them.
 
 ### Phase 4: Trace & Understand
@@ -101,7 +102,7 @@ For flow tracing, work in ONE direction systematically:
 
 ### Phase 5: Synthesize
 
-Structure your findings:
+For a standalone architecture or research report, use the relevant sections below. For implementation support or a narrow question, return the answer, supporting paths, and remaining uncertainty without generating a separate report.
 
 ```markdown
 ## Code Research: [Topic]
@@ -130,9 +131,9 @@ Structure your findings:
 
 1. **Structure before content** — understand file/module layout before reading code
 2. **LSP over grep** — for symbol navigation, LSP is more accurate
-3. **GitNexus for cross-module** — when tracing across module boundaries
+3. **Graph evidence when needed** — follow the conditional graph-discovery guidance above; a module boundary alone does not require another lookup.
 4. **Parallel agents for breadth** — dispatch 2–3 independent `scout` assignments only when breadth justifies them.
-5. **Context7 before guessing** — use the `librarian` for current library documentation.
+5. **Context7 before guessing** — use Context7 directly for current library documentation; verify version-sensitive claims against the applicable version.
 6. **Primary sources for patterns** — prefer official repositories and maintained examples.
 7. **Stop when sufficient** — don't over-explore; answer the question and stop
 8. **Read, don't skim** — when you find the relevant file, read it properly
@@ -143,5 +144,5 @@ Structure your findings:
 - Reading every file in a directory instead of using LSP to navigate
 - Asking a reviewer about code you have not read yet
 - Searching external repositories for project-specific behavior
-- Using only one discovery method when the question spans multiple modules
+- Adding another discovery method without a specific unresolved question or conflicting evidence.
 - Spawning scouts for work a single targeted search can answer

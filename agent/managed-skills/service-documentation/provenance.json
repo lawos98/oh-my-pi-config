@@ -1,0 +1,34 @@
+{
+  "component": "service-documentation",
+  "origin": "Locally authored OMP managed workflow; not an imported upstream skill",
+  "reviewDate": "2026-10-19",
+  "runtime": {
+    "package": "zensical==0.0.71",
+    "source": "https://github.com/zensical/zensical",
+    "commit": "786383193ba87e7091456e3e30926375b1510127",
+    "license": "MIT",
+    "wheel": "zensical-0.0.71-cp311-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+    "sha256": "fc8ed534717b61f285dc217f165f901f8b8a6142ef37cdd5544976cd99b5720c",
+    "dependencyLock": "templates/requirements.lock",
+    "reviewedPlatform": "Linux x86_64, CPython 3.14",
+    "installation": "Temporary isolated virtual environment for acceptance only; future service projects require approved local installation"
+  },
+  "review": {
+    "sourcePaths": ["pyproject.toml", "python/zensical/main.py", "python/zensical/config.py", "crates/zensical/Cargo.toml", "Cargo.toml", "LICENSE.md"],
+    "wheelChecks": "All 11 downloaded wheel SHA-256 digests matched exact filenames in PyPI release metadata; dependency/entrypoint/license metadata inspected; no .pth or .data/scripts startup paths found",
+    "limits": "Bounded source and metadata review, not exhaustive dependency/native-binary audit or reproducible-build verification",
+    "controls": ["Binary-only hash-required installation", "No global install or updates", "System fonts; no configured remote scripts or assets", "Trusted configuration and Markdown only", "Loopback-only preview", "No publication or credentials"]
+  },
+  "verification": {
+    "date": "2026-10-19",
+    "observed": ["Native backend launcher --inspect selected service-documentation", "Archify generated HTML and PNG", "HyperFrames rendered a six-second illustrative MP4", "Zensical built successfully", "Browser navigation and search result selection worked beneath /site/", "Repaired HTML embeds loaded actual diagram rather than generated Markdown fragment", "Keyboard video playback worked without autoplay", "Playback and complete static composition pages loaded", "No external HTTP requests observed in the browser capture"],
+    "repair": "Exclude adapter-generated same-stem Markdown fragments from docs/: Zensical otherwise renders them over the standalone HTML. One rebuild succeeded after correction.",
+    "caveats": ["Search wait helper timed out although subsequent inspection and Enter navigation showed the correct result", "Browser capture recorded a video request aborted on navigation and a standalone-page favicon 404", "Launcher reported an unrelated .vscode/mcp.json read warning", "No GitHub Pages deployment, API renderer installation, real service documentation, full accessibility audit, or OS-level network isolation verified"],
+    "report": "Local acceptance report is not redistributed. These historical source observations were not repeated for the public export."
+  },
+  "publication": {
+    "workflow": "templates/github-pages.yml.example",
+    "enabled": false,
+    "limits": "Manual activation and publication approval required. Top-level action commits pinned, but upload-pages-artifact invokes a moving upload-artifact@v4 dependency; runner and Python patch release are not immutable. Private repository does not imply private Pages."
+  }
+}

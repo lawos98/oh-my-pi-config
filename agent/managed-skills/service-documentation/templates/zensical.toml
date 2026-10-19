@@ -1,0 +1,17 @@
+[project]
+site_name = "Service documentation workflow"
+site_description = "An evidence-led, local-first documentation workflow, not a service architecture."
+docs_dir = "docs"
+site_dir = "site"
+use_directory_urls = false
+dev_addr = "127.0.0.1:8000"
+nav = [
+  { "Workflow" = "index.md" },
+  { "Diagrams and video" = "media.md" },
+  { "API references" = "api.md" },
+]
+
+[project.theme]
+font = false
+# Full page navigation keeps embedded HTML initialization predictable.
+features = []
