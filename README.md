@@ -17,6 +17,10 @@ lightweight subagents. Explicit model overrides still take precedence.
 2. Follow [installation and migration](docs/INSTALL.md).
 3. Choose a [model and profile](profiles/README.md).
 
+Find available workflows in the [quick reference](docs/README.md):
+[commands](docs/COMMANDS.md), [skills](docs/SKILLS.md), and
+[extensions and integrations](docs/EXTENSIONS.md).
+
 ## What lives where
 
 | Component | Purpose |
