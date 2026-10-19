@@ -26,7 +26,6 @@ lightweight subagents. Explicit model overrides still take precedence.
 | [agent](agent/README.md) | Native settings and shared engineering rules |
 | [commands](docs/COMMANDS.md) | Six named workflows such as PR review and developer documentation |
 | [skills](agent/skills/README.md) | Task-specific guidance and supporting references |
-| [managed skills](agent/managed-skills/README.md) | Reviewed generated guidance included in this snapshot |
 | [plugins](plugins/README.md) | Plugin versions, source pins, and preference files |
 | [packages](docs/PACKAGES.md) | Optional runtimes and external integrations |
 | [third-party notices](THIRD_PARTY_NOTICES.md) | Sources, licenses, and redistribution limits |

@@ -25,6 +25,22 @@ Archify includes its renderer source and editable example JSON. Generated exampl
 
 Paths in examples assume installation under `$HOME/.omp`; adjust them for another installation root. Runtime helpers are optional capabilities, not automatic setup steps.
 
+## Service documentation
+
+[service-documentation](service-documentation/SKILL.md) is part of this catalog,
+not a separate managed package. Use it for source-backed service documentation
+sites. Its [authoring reference](service-documentation/references/authoring.md)
+and templates cover Zensical, API pages, diagrams, video, and an inert Pages workflow.
+Dependencies and publication require separate approval.
+
+## Generated candidates
+
+All maintained local skills live here. Native autolearning may create candidates
+in `agent/managed-skills`; review and explicitly promote them into this catalog
+before selecting them in a launcher profile. Plugin-owned skills stay in their
+packages, without duplicate copies here.
+
+
 ## Public snapshot boundaries
 
 - Company-only `jira-ticket-creator` and `kotlin-spring-hexagonal-service` are excluded. Generic Kotlin guidance remains; links to unavailable company-specific guidance are removed.

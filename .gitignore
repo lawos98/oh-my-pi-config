@@ -32,11 +32,6 @@
 !/agent/commands/arena.md
 !/agent/skills/
 !/agent/skills/**
-!/agent/managed-skills/
-/agent/managed-skills/*
-!/agent/managed-skills/README.md
-!/agent/managed-skills/service-documentation/
-!/agent/managed-skills/service-documentation/**
 
 !/plugins/
 /plugins/*

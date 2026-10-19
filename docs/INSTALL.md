@@ -75,6 +75,9 @@ from the installed setup if they still contain the repository's retired versions
 - `agent/commands/self-review.md`: replaced by `/pr-review` without an argument.
 - `agent/commands/create-skill.md`: no longer selected; request skill authoring explicitly.
 - `agent/behavior-control/config.json` and `plugins/quotas.json`: retired plugin preferences.
+- `agent/managed-skills/service-documentation/`: moved, with all support files, to
+  `agent/skills/service-documentation/`. Reconcile any local edits before removing
+  the old copy; do not leave duplicate skill entrypoints.
 
 Do not remove unrelated or locally customized files. To undo a migration, stop
 OMP and restore the backed-up paths, removing newly introduced paths as needed.

@@ -12,7 +12,6 @@ it does not replace provider authentication or the global configuration.
 | `mcp.json` | Public GitNexus-only example; merge it with private connections locally |
 | [commands](../docs/COMMANDS.md) | Named prompt workflows |
 | [skills](skills/README.md) | Curated task guidance |
-| [managed-skills](managed-skills/README.md) | Reviewed generated guidance |
 
 ## Settings to review first
 
