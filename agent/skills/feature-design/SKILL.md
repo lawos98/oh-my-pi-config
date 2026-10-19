@@ -1,6 +1,6 @@
 ---
 name: feature-design
-description: Design features and behavior changes through evidence-backed brainstorming. Use when intent, scope, requirements, acceptance criteria, or competing approaches need clarification before implementation.
+description: Design features, substantial solutions, and behavior changes through evidence-backed architecture assessment and brainstorming. Use when boundaries, data and failure flows, consistency, concurrency, maintainability, requirements, or competing approaches need clarification before implementation.
 license: MIT
 metadata:
   domain: workflow
@@ -35,6 +35,19 @@ Cover only branches required by the feature:
 - the smallest useful implementation slice;
 - observable acceptance criteria.
 
+### Substantial solution assessment
+
+For work spanning components, persisted contracts, asynchronous flows or consequential operational behavior, assess the architecture before implementation. Keep this proportional to the change; a localized feature does not require a system redesign.
+
+- Identify ownership and boundaries: the responsible modules/services, public contracts, trust boundaries and external systems. Reuse existing seams before proposing new services or layers.
+- Trace data and control flow through the important success and failure paths. Identify persisted state, schema compatibility, error ownership, partial completion and recovery.
+- State concurrency and consistency requirements: competing writers, ordering, atomicity, transaction boundaries, duplicate delivery, idempotency and cancellation where relevant. Do not add queues, retries, locks or distributed transactions without a demonstrated requirement.
+- Compare meaningful alternatives only where a material choice exists, including the smallest change to the current design. Explain trade-offs in correctness, compatibility, failure handling, operating cost and six-month maintainability; avoid straw alternatives or a fixed option quota.
+- Choose the simplest viable design that satisfies all acceptance criteria. Name its limits and any unresolved evidence rather than creating speculative abstractions or silently narrowing scope.
+- Map the decision to the affected callers, data contracts and focused tests. Separate observed facts from assumptions that still need resolution.
+
+Fold this assessment into the existing decision and confirmation flow. It does not mandate another review agent, architecture score, check run, approval round for already-confirmed choices, or unrelated repository redesign.
+
 ## 3. Ask frontier rounds
 
 Ask the whole current frontier in one round. Use structured choices when they represent the real options, recommend one answer for every question, and explain the material trade-off concisely.
@@ -53,6 +66,7 @@ Summarize:
 - chosen behavior and rejected alternatives;
 - scope and non-goals;
 - important invariants and failure behavior;
+- component and data ownership, material concurrency/consistency decisions, and why the simplest viable design was chosen;
 - the smallest useful slice;
 - acceptance criteria;
 - unresolved risks, if any.

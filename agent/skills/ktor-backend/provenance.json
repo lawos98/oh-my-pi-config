@@ -1,0 +1,28 @@
+{
+  "name": "ktor-backend",
+  "decision": "original-guidance-from-official-research",
+  "authored_on": "2026-10-17",
+  "researched_on": "2026-10-17",
+  "source_library": "/ktorio/ktor-documentation",
+  "research_method": "Context7 resolve-library-id and three scoped documentation queries, followed by official page reads",
+  "documentation_version_observed": "3.6.0",
+  "target_version_policy": "Use repository versions and version-matched documentation; do not assume research version or experimental APIs.",
+  "sources": [
+    "https://ktor.io/docs/server-plugins.html",
+    "https://ktor.io/docs/server-request-validation.html",
+    "https://ktor.io/docs/server-custom-plugins.html",
+    "https://github.com/ktorio/ktor-documentation/blob/main/topics/migrating-3.md",
+    "https://github.com/ktorio/ktor-documentation/blob/main/topics/whats-new-340.md",
+    "https://github.com/ktorio/ktor-documentation/blob/main/topics/whats-new-360.md"
+  ],
+  "source_reuse": "Original prose; no upstream source text or code snippets vendored; linked documentation is evidence only.",
+  "runtime_dependencies": [],
+  "hooks": [],
+  "commands": [],
+  "network_at_runtime": false,
+  "residual_risks": [
+    "Documentation URLs are mutable research references, not immutable imported source pins.",
+    "Context7 returns mixed-version examples; guidance explicitly requires installed-version checks.",
+    "Engine cancellation behavior cannot be established from in-process test harness results alone."
+  ]
+}

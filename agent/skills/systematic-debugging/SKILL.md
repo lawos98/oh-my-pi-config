@@ -8,6 +8,8 @@ description: Use when encountering any bug, test failure, or unexpected behavior
 Use this skill to move from an observed failure to a verified root-cause fix. Prefer evidence
 over guesses, and keep the smallest useful change isolated from unrelated cleanup.
 
+Apply RULES.md's execution and failure-stop policy throughout this workflow. A debugging hypothesis does not authorize repeated test/build/lint/format runs or automatic repair after a failed check.
+
 ## Core Principle
 
 Investigate the cause before changing the code. A workaround may be necessary to contain an
@@ -33,8 +35,7 @@ Before proposing a fix:
 - Read the complete error, warning, and stack trace. Record the relevant file, line, error code,
   request or correlation identifier, and timestamp.
 - Define the expected and actual behavior, including inputs, state, timing, and affected users.
-- Reproduce the failure with the smallest reliable scenario. If it is intermittent, capture
-  enough repeated observations to describe when it occurs; do not guess from one occurrence.
+- Treat user-reported failures and supplied output as evidence; do not rerun a check merely to confirm them. When additional observation is needed, identify the smallest permitted scenario that distinguishes the suspected causes.
 - Compare the current behavior with recent code, dependency, configuration, data, and
   environment changes.
 - Trace the failing value or state backward through callers, transformations, persistence, and
@@ -70,20 +71,15 @@ discriminating observation first. Do not present a list of untested fixes as an 
 - Prefer a focused reproduction, trace, query, or diagnostic over a broad rewrite.
 - Confirm that the result actually tests the hypothesis, rather than merely making the symptom
   disappear.
-- If the hypothesis fails, record what was learned and return to investigation with the new
-  evidence.
+- If an observation disproves the hypothesis, retain the evidence and revise the explanation. If a test/build/lint/format check failed, stop under the global policy rather than starting another experiment or repair.
 
-When the defect changes observable behavior and a lasting regression test can protect that
-behavior, use the current `test-driven-development` skill: write a minimal failing behavior
-test before implementing the fix. Do not force a test when the failure is purely environmental
-or cannot be represented reliably; preserve a reproducible diagnostic or smoke check instead.
+When a lasting regression test can protect the observable behavior, add one at a stable public boundary. Invoke test-driven-development only under that skill's explicit opt-in conditions. Otherwise follow the global execution policy; adding a regression test does not authorize a Red-Green execution loop. For environmental or unreliable reproductions, retain the diagnostic evidence and state the verification limit.
 
 ### 4. Fix and verify
 
 - Fix the root cause at the layer that owns the invariant.
 - Keep the fix focused; do not bundle speculative refactoring or unrelated improvements.
-- Run the regression test or reproduction and confirm it fails before the fix when practical.
-- Verify the expected behavior after the fix, then exercise relevant adjacent paths.
+- Use existing before-change evidence and the permitted focused verification to assess the fix. Include relevant adjacent behavior in that verification only where the changed contract requires it; do not automatically launch additional checks.
 - Check that the original error, failure semantics, and useful context remain visible.
 - Re-check boundaries, cancellation, retries, concurrency, persistence, and compatibility when
   they are part of the failing path.

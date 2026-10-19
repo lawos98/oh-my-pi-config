@@ -1,0 +1,32 @@
+Skill Creator
+Copyright 2026 Anthropic, PBC.
+Licensed under the Apache License, Version 2.0; see LICENSE.txt.
+
+Immutable original source:
+https://github.com/anthropics/skills/tree/8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4/skills/skill-creator
+
+The SKILL.md, scripts, agents, schemas and viewer in configuration snapshot
+b78aa3cbb13a173d0e8b148bea5f5f1ed7d4b290 all matched this original source
+byte-for-byte before the modifications below. LICENSE.txt is retained from
+the immutable original source, including Anthropic's copyright notice.
+
+Local modifications in oh-my-pi-config:
+- SKILL.md: original-source metadata, safety guidance and provider consent.
+- scripts/package_skill.py: reject symbolic/hard links and non-regular inputs,
+  out-of-root paths, self-including output and existing archives.
+- scripts/run_eval.py: opt-in before model subprocesses or command-file writes,
+  safe skill/project inputs, exclusive command files, complete CLI arguments.
+- scripts/improve_description.py: explicit provider subprocess opt-in.
+- scripts/run_loop.py: propagate consent, validate inputs and use new, safe
+  report/results paths rather than overwriting existing outputs.
+- scripts/generate_report.py: remove remote fonts and escape report metadata.
+- eval-viewer/generate_review.py: restrict files to the workspace, escape
+  embedded script data, restrict feedback Host/Origin and payloads, use atomic
+  owner-only feedback files, bind loopback and never kill unrelated processes.
+- eval-viewer/viewer.html: remove remote browser assets, escape dynamic values,
+  use passive previews and retain downloads for SVG/PDF/spreadsheet outputs.
+- tests/test_safety.py: local regression coverage for packaging boundaries,
+  same-origin feedback and refusal of unconsented provider subprocesses.
+
+All other original files retain their original contents and notices.
+These local modifications are distributed under the Apache License 2.0.

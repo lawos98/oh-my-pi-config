@@ -1,0 +1,31 @@
+{
+  "name": "reviewed-sources",
+  "owner": { "name": "Local reviewed OMP sources" },
+  "metadata": {
+    "description": "Explicitly reviewed immutable sources. Update SHA and version together after review; never replace local authentication settings."
+  },
+  "plugins": [
+    {
+      "name": "github",
+      "version": "0.0.0+ea10b213686c",
+      "description": "GitHub MCP definition pinned to the reviewed official marketplace snapshot.",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "path": "external_plugins/github",
+        "sha": "ea10b213686c90bb1984b2016937310e05336cf3"
+      }
+    },
+    {
+      "name": "context7",
+      "version": "0.0.0+ea10b213686c",
+      "description": "Context7 MCP definition pinned to the reviewed official marketplace snapshot; native user configuration preserves local connection settings.",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "path": "external_plugins/context7",
+        "sha": "ea10b213686c90bb1984b2016937310e05336cf3"
+      }
+    }
+  ]
+}

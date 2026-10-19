@@ -14,7 +14,7 @@ description: >-
 
 ## Overview
 
-Patterns for reactive/async Kotlin: coroutines with structured concurrency, Flow for reactive streams, and Spring WebFlux/Ktor integration. This skill covers the reactive paradigm — NOT DDD/hexagonal (see kotlin-spring-hexagonal-service) or IntelliJ APIs (see kotlin-intellij-plugin-dev).
+Patterns for reactive/async Kotlin: coroutines with structured concurrency, Flow for reactive streams, and Spring WebFlux/Ktor integration. This skill covers the reactive paradigm, not DDD/hexagonal architecture or IntelliJ APIs. Follow the target repository's architecture conventions.
 
 ## When to Use
 

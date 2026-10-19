@@ -1,0 +1,21 @@
+{
+  "source": "https://github.com/vercel-labs/agent-skills",
+  "revision": "063bee94c3f4df8453406c830b0a7df0f2860278",
+  "reviewedAt": "2026-10-17",
+  "upstreamPath": "skills/react-best-practices",
+  "licenseEvidence": "Pinned upstream README labels project MIT; no root LICENSE/NOTICE was present in the reviewed tree. Retain existing attribution and verify permission text before redistribution.",
+  "adaptedRules": [
+    "async-cheap-condition-before-await",
+    "bundle-analyzable-paths",
+    "server-no-shared-module-state",
+    "server-parallel-nested-fetching",
+    "js-request-idle-callback",
+    "advanced-effect-event-deps"
+  ],
+  "modifications": [
+    "Preserve authorization, required side effects, error ordering, cancellation and concurrency limits.",
+    "Idle scheduling is optional, cancellable and feature-detected; no guaranteed deadline or essential persistence claim.",
+    "Effect Event guidance depends on installed React/lint versions; no dependency suppression or forced upgrade.",
+    "Maintain one skill entrypoint and link new reference files from the original compiled guide."
+  ]
+}

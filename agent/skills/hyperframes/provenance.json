@@ -1,0 +1,79 @@
+{
+  "component": "hyperframes",
+  "version": "0.8.169",
+  "source": "https://github.com/heygen-com/hyperframes",
+  "commit": "7735338b49ed6e11c227b0710da3bd35c3366b9c",
+  "release": "v0.8.169",
+  "sourceArchiveSha256": "e9e6945acf4fea21b3cc87ae08bac1f2d3467377f0b6b1ede3f88e705ddc22a2",
+  "package": "hyperframes@0.8.169",
+  "npmGitHead": "7735338b49ed6e11c227b0710da3bd35c3366b9c",
+  "tarball": "https://registry.npmjs.org/hyperframes/-/hyperframes-0.8.169.tgz",
+  "integrity": "sha512-n97VEf+a1ifgpftDFLgPwHdR9wYVirYrV2NontNL5u7e5XSO/qWXVeIDoVodLyEjSwoLb5jxxAgzKz9NjqD9GA==",
+  "license": "Apache-2.0",
+  "reviewDate": "2026-10-17",
+  "decision": "Adopt installed pinned CLI only behind focused local render adapter; no broad upstream skills/router",
+  "review": {
+    "sourcePaths": [
+      "packages/cli/package.json",
+      ".github/workflows/publish.yml",
+      "packages/cli/bin/hyperframes.mjs",
+      "packages/cli/src/cli.ts",
+      "packages/cli/src/commands/render.ts",
+      "packages/cli/src/browser/manager.ts",
+      "packages/cli/src/utils/autoUpdate.ts",
+      "packages/cli/src/utils/dotEnv.ts",
+      "packages/cli/src/utils/skillsUpdateCheck.ts",
+      "packages/cli/src/telemetry/policy.ts",
+      "packages/producer/src/services/fileServer.ts",
+      "packages/producer/src/services/healthWorker.ts",
+      "skills/hyperframes-animation/adapters/waapi.md"
+    ],
+    "packageIdentity": "Published unscoped name is rewritten by upstream publish workflow; npm gitHead matches source commit; downloaded tarball SHA512 matches registry integrity.",
+    "dependencies": "126 package-lock entries including root and optional platform variants; 75 packages installed. Exact versions, integrity, resolved URLs, and licenses retained in runtime/package-lock.json. All resolved origins registry.npmjs.org.",
+    "lifecycle": "Only esbuild@0.25.12 declares install hook (node install.js). All lifecycle scripts disabled with npm ci --ignore-scripts --no-audit --no-fund; platform binary packages retained.",
+    "runtimeControl": "Adapter allowlists inherited environment, isolates HOME, disables telemetry/update/auto-install/skills/health-worker, pins existing browser, limits render workers to one. CLI cwd is runtime directory, not project .env directory.",
+    "authority": "Renders authored HTML/JavaScript, reads selected local project assets, spawns Chromium and ffmpeg, writes selected outputs and local history/cache. Render file server binds loopback. No cloud command exposed by adapter.",
+    "exclusions": [
+      "upstream init and skills bootstrap",
+      "auto upgrades",
+      "cloud/lambda services",
+      "media generation and accounts",
+      "remote fonts and scripts",
+      "browser downloads",
+      "global install"
+    ],
+    "dependencyLicenses": [
+      "0BSD",
+      "Apache-2.0",
+      "Apache-2.0 AND LGPL-3.0-or-later",
+      "Apache-2.0 AND LGPL-3.0-or-later AND MIT",
+      "BSD-3-Clause",
+      "CC0-1.0",
+      "ISC",
+      "LGPL-3.0-or-later",
+      "MIT"
+    ]
+  },
+  "runtime": {
+    "node": "26.11.1",
+    "npm": "12.2.1",
+    "ffmpeg": "/usr/bin/ffmpeg (n9.0.2)",
+    "browser": "/absolute/path/to/chromium",
+    "cli": "runtime/node_modules/hyperframes/bin/hyperframes.mjs",
+    "adapter": "render.mjs",
+    "state": "runtime/state/"
+  },
+  "verification": {
+    "status": "local acceptance completed 2026-10-17",
+    "evidence": "Corrected WAAPI host with data-no-timeline. Strict render succeeded: 180 frames, 6 seconds, H.264 1280x720 at 30fps; PNG, HTML and Markdown generated. Browser playback and seek worked; frame preview showed ordered emphasis. Static source retained all three steps with reduced motion and zero animations.",
+    "limitations": "Browser canvas pixel sampling on file URLs was blocked by same-origin policy; rendered motion was inspected with the video preview instead. No cloud, remote assets, audio or arbitrary-composition coverage."
+  },
+  "acceptance": "node $HOME/.omp/agent/skills/hyperframes/render.mjs $HOME/.omp/agent/skills/hyperframes/examples/request-sequence /tmp/omp-documentation-acceptance/walkthrough.mp4",
+  "risks": [
+    "Acceptance covers the included local example, not every composition, engine feature or a browser-security sandbox.",
+    "Environment opt-outs are not a network sandbox. Only reviewed locally authored compositions are admitted.",
+    "Native dependencies include LGPL-3.0-or-later libvips and preserve their installed licenses.",
+    "Published package bundles upstream runtime internals; source/package correspondence is based on npm gitHead and tarball integrity, not a reproducible rebuild.",
+    "Development dependency audit is not a full line-by-line transitive source audit."
+  ]
+}

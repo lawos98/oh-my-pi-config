@@ -2,7 +2,9 @@
   "version": "1.0.0",
   "organization": "Vercel Engineering",
   "date": "January 2026",
-  "abstract": "Comprehensive performance optimization guide for React and Next.js applications, designed for AI agents and LLMs. Contains 40+ rules across 8 categories, prioritized by impact from critical (eliminating waterfalls, reducing bundle size) to incremental (advanced patterns). Each rule includes detailed explanations, real-world examples comparing incorrect vs. correct implementations, and specific impact metrics to guide automated refactoring and code generation.",
+  "abstract": "Locally adapted React and Next.js guidance: 70 rules across 8 categories. Apply version-aware rules to demonstrated behavior and performance needs; preserve architecture, authorization, cancellation, and execution policy.",
+  "sourceRevision": "063bee94c3f4df8453406c830b0a7df0f2860278",
+  "localAdaptationDate": "2026-10-17",
   "references": [
     "https://react.dev",
     "https://nextjs.org",

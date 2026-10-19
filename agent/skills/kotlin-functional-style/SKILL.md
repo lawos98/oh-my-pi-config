@@ -12,9 +12,7 @@ description: >-
 # Kotlin Functional-Style Guidance
 
 This is supplemental guidance. The target repository's `AGENTS.md`, contracts,
-tests, and existing Kotlin Spring architecture conventions prevail. In
-particular, this skill does not replace or contradict
-`kotlin-spring-hexagonal-service`.
+tests, and existing Kotlin Spring architecture conventions prevail.
 
 ## Principle
 
