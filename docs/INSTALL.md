@@ -5,13 +5,15 @@ or install plugins. Review executable skills and third-party notices before use.
 
 ## Prerequisites
 
-- OMP and Bun on `PATH`; the launcher imports source modules from the installed OMP package.
+- OMP 19.0.0 and Bun on `PATH`; the launcher expects the Bun global package layout
+  (`../install/global/node_modules/@oh-my-pi/pi-coding-agent` relative to the resolved
+  `omp` executable directory) and imports that package's source modules.
 - Provider access for the selected model, or a configured LM Studio connection for `f2p`.
 - A Nerd Font for the configured terminal symbols.
 - Separate setup for the plugins and optional runtimes in [PACKAGES.md](PACKAGES.md).
 
-The source launcher documentation records OMP 18.11.3 smoke runs. Internal OMP
-APIs can change; inspect the exported setup with your installed version.
+This snapshot targets the installed OMP 19.0.0 executable. Internal source APIs
+and package layouts can change; inspect the exported setup with your installation.
 
 ## Fresh installation
 
@@ -24,6 +26,9 @@ cd oh-my-pi-config
 
 Review `agent/config.yml` before copying it. It enables automatic tool approval,
 project memory, and passive learning. No installation-specific QA consent is included.
+Browser relay is enabled and may use your signed-in Chrome session. Set
+`PI_BROWSER_RELAY=0` when launching to disable the relay. Automatic OMP updates
+are enabled; review that setting if you need a pinned runtime.
 
 The following copy is for a destination that does **not** already exist. If you
 already use OMP, follow the update section instead.
@@ -57,7 +62,7 @@ ln -s "$HOME/.omp/bin/ohMyPi.mjs" "$HOME/.local/bin/ohMyPi"
    Backups may contain credentials and session data; never commit them.
 2. Compare the current configuration with this checkout. Merge `agent/config.yml`
    and rule files deliberately; do not overwrite unrelated preferences.
-3. Copy `bin/` and `profiles/`, the six command files, and the reviewed skill trees.
+3. Copy `bin/` and `profiles/`, the seven command files, and the reviewed skill trees.
    Copy each included skill's complete support files, not only `SKILL.md`.
 4. Merge the GitNexus entry from `agent/mcp.json` into local MCP configuration.
    Do not replace private connections with the public example.

@@ -15,6 +15,7 @@ Check what the documents require against what the code enforces. A mismatch may 
 ## Scope and authority
 
 1. Identify the user-named documents, relevant implementation and intended version. Establish which documents are authoritative and distinguish mandatory requirements from recommendations, options, examples and future roadmap items. Resolve authority from evidence; ask only if a material conflict remains.
+   - Distinguish current-system descriptions, intended specifications, proposed changes, and historical ADRs. A proposed specification is not automatically approved; a historical decision is not proof of current enforcement. For a requested new specification use `feature-design`; for ADR lifecycle and durable documentation use `documentation-and-adrs`. Report an unresolved authority conflict rather than silently rewriting either side.
 2. If there is no statement of intended behavior, report that prerequisite. Do not infer a requirement from code and then compare the code against itself. Use general code review instead when the user wants bug hunting without a specification.
 3. This review is read-only. Report findings before any proposed implementation. Explicitly authorized small fixes can use the normal engineering workflow; a broad overhaul needs agreement on a target and boundaries first. Do not create report trees, tickets, rules, commits, tools or commands by default.
 
@@ -42,7 +43,7 @@ Severity follows concrete impact and reachability, not wording similarity or the
 
 Lead with actionable discrepancies, then provide a compact requirement table: source, required behavior, outcome, enforcement/path evidence and uncertainty. Separate code defects, document drift, ambiguous requirements, and recommendations. Include checked/not-checked scope and actual checks performed. If there is no supported discrepancy, say so; do not manufacture one to fill a quota.
 
-Do not execute checks merely because this skill is a review. Follow OMP's existing execution policy for any authorized check; on failure stop validation and automatic repair. Static reasoning, edits and runtime observations are different evidence.
+Do not execute checks merely because this skill is a review. Follow OMP's shared execution policy, including its bounded recovery allowance, for any authorized check. Static reasoning, edits and runtime observations are different evidence.
 
 ## Completion
 

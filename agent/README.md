@@ -10,6 +10,7 @@ it does not replace provider authentication or the global configuration.
 | `coding-rules.md` | Kotlin, Spring, MongoDB, and Gradle review guidance |
 | `response-rules-reminder.md` | Concise reporting and one decision at a time through native `ask` |
 | `mcp.json` | Public GitNexus-only example; merge it with private connections locally |
+| `themes/titanium-ultraviolet.json` | Custom dark theme selected by `config.yml` |
 | [commands](../docs/COMMANDS.md) | Named prompt workflows |
 | [skills](skills/README.md) | Curated task guidance |
 
@@ -21,6 +22,8 @@ it does not replace provider authentication or the global configuration.
 - **Learning:** passive learning is enabled, but `autolearn.autoContinue` is false.
 - **Models:** plain `omp` uses the base Luna mapping. `ohMyPi` supplies the selected
   preset's complete mapping instead. Provider access is not included.
+- **Browser:** relay is enabled and may use signed-in Chrome; set `PI_BROWSER_RELAY=0` to disable it per launch.
+- **Updates:** automatic OMP updates are enabled. Internal launcher APIs may change after an update.
 
 Do not copy this directory wholesale from a live installation. Auth, databases,
 sessions, memories, and caches are private runtime state. Installation-specific

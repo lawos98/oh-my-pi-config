@@ -4,7 +4,7 @@ Describe the result you need in normal language. OMP uses the available skill de
 You can also name a skill explicitly. When native skill commands are enabled, use `/skill:<name>`, such as `/skill:grill-me`.
 `grill-me` is user-invoked, not an automatic interview mode.
 
-This catalog lists 65 maintained definitions under `agent/skills`, plus six package-owned Ponytail skills below.
+This catalog lists 67 maintained definitions under `agent/skills`, plus six package-owned Ponytail skills below.
 Names come from frontmatter, not directory names. The links account for the different shadcn, Supabase, and Taste directory names.
 
 A catalog entry does not guarantee availability in your session. Launcher profile allowlists can hide skills.
@@ -19,7 +19,7 @@ Examples request a workflow; they do not bypass approval, execution, privacy, or
 | [web-research](../agent/skills/web-research/SKILL.md) | Compare web sources and track evidence. | “Research these options using primary sources.” |
 | [reverse-engineering](../agent/skills/reverse-engineering/SKILL.md) | Investigate authorized artifacts or behavior without source. | “Inspect this local package without running it.” |
 | [media-knowledge](../agent/skills/media-knowledge/SKILL.md) | Turn TikTok and visual media into cited research. | “Summarize these clips with timestamped evidence.” |
-| [feature-design](../agent/skills/feature-design/SKILL.md) | Clarify feature boundaries, trade-offs, and failure flows. | “Design this feature before implementation.” |
+| [feature-design](../agent/skills/feature-design/SKILL.md) | Clarify behavior and design; write requested specifications. | “Design this feature and specify its acceptance scenarios.” |
 | [arena](../agent/skills/arena/SKILL.md) | Compare competing proposals on explicit request. | “Use Arena to compare implementation proposals.” |
 | [prototype](../agent/skills/prototype/SKILL.md) | Build a throwaway experiment to resolve uncertainty. | “Prototype this state transition.” |
 | [customer-evidence](../agent/skills/customer-evidence/SKILL.md) | Synthesize authorized, deidentified customer evidence. | “Find recurring needs in these anonymized interviews.” |
@@ -97,14 +97,20 @@ Examples request a workflow; they do not bypass approval, execution, privacy, or
 | Skill | Purpose | Example request |
 | --- | --- | --- |
 | [documentation-and-adrs](../agent/skills/documentation-and-adrs/SKILL.md) | Document contracts, procedures, and consequential decisions. | “Record this architectural decision and its trade-offs.” |
+| [documentation-review](../agent/skills/documentation-review/SKILL.md) | Diagnose source accuracy, usability, structure, and example safety. | “Audit these docs and report actionable findings without editing.” |
+| [tutorial-authoring](../agent/skills/tutorial-authoring/SKILL.md) | Author hands-on learner journeys with checkpoints and safe reset. | “Write a source-backed onboarding tutorial for this local workflow.” |
 | [service-documentation](../agent/skills/service-documentation/SKILL.md) | Build local-first Zensical service documentation sites. | “Create a source-backed service documentation portal.” |
-| [archify](../agent/skills/archify/SKILL.md) | Create standalone interactive diagrams on request. | “Make this architecture explorable.” |
-| [hyperframes](../agent/skills/hyperframes/SKILL.md) | Explain useful motion or sequences with local video. | “Use HyperFrames to explain this request lifecycle.” |
+| [archify](../agent/skills/archify/SKILL.md) | Create requested interactive diagrams or default new-handbook diagrams. | “Make this architecture explorable.” |
+| [hyperframes](../agent/skills/hyperframes/SKILL.md) | Render authorized local video; handbook video requires an explicit request. | “Use HyperFrames to explain this request lifecycle.” |
 | [simple-english](../agent/skills/simple-english/SKILL.md) | Write clear, non-normative technical prose. | “Rewrite this runbook in simple English.” |
 | [stop-slop](../agent/skills/stop-slop/SKILL.md) | Remove filler and formulaic prose without changing facts. | “Remove filler from this explanation.” |
 | [humanizer](../agent/skills/humanizer/SKILL.md) | Humanize existing documentation only on explicit request. | “Humanize this documentation without changing its facts.” |
 | [writing-for-agents](../agent/skills/writing-for-agents/SKILL.md) | Write or audit agent-facing rules and instructions. | “Audit these agent instructions for ambiguity.” |
 | [skill-creator](../agent/skills/skill-creator/SKILL.md) | Create, revise, or explicitly evaluate OMP skills. | “Create a skill for this repeated workflow.” |
+
+For source-driven documentation, `documentation-and-adrs` includes [layered authoring](../agent/skills/documentation-and-adrs/AUTHORING.md) and [source-to-section synchronization](../agent/skills/documentation-and-adrs/SOURCE-TO-DOCS.md). The [ADR authoring reference](ADR-AUTHORING.md) supplies the setup's detailed presentation default without overriding a repository's binding convention.
+
+`karpathy-guidelines` is not included: its pinned local source declares MIT but lacks a standalone license/copyright notice. Redistribution clearance remains unresolved; see [third-party notices](../THIRD_PARTY_NOTICES.md).
 
 ## Communication and continuity
 

@@ -4,7 +4,7 @@ Start here to find what is available and how to ask for it.
 
 | Guide | What you will find |
 | --- | --- |
-| [Commands](COMMANDS.md) | Every custom slash command, examples, profile availability, and edit/publication limits |
+| [Commands](COMMANDS.md) | All seven custom slash commands, examples, profile availability, and edit/publication limits |
 | [Skills](SKILLS.md) | Every maintained skill, grouped by task, with a purpose and example request |
 | [Extensions and integrations](EXTENSIONS.md) | Plugins, browser relay, MCP integrations, and native helpers |
 | [Packages](PACKAGES.md) | Source pins, dependencies, configuration ownership, and setup boundaries |
@@ -41,5 +41,11 @@ prove authentication or runtime readiness. Restart OMP after resource changes.
 Profiles expose selected resources; they are not permission sandboxes. Plain
 `omp` does not apply the launcher's profile filtering. Availability does not grant
 permission to publish, install packages, access production, or spend money.
+
+Use `/task-context` to save the current task's requirements, decisions, evidence
+and pending work in a ticket-named context note at the project root. Attach that
+note in a new session or ask the assistant to read its absolute path and reconcile
+it with the current checkout before continuing. Saving context does not authorize
+pending changes or rerun checks. See [command arguments and limits](COMMANDS.md#arguments-and-limits).
 
 For setup and migration, read [installation](INSTALL.md).

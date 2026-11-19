@@ -17,6 +17,18 @@ models:
       smol: "openai-codex/gpt-6-luna:off"
       commit: "openai-codex/gpt-6-luna:minimal"
       tiny: "openai-codex/gpt-6-luna:off"
+  luna-github:
+    modelRoles:
+      default: "github-copilot/gpt-6-luna:auto"
+      plan: "github-copilot/gpt-6-luna:max"
+      slow: "github-copilot/gpt-6-luna:max"
+      task: "github-copilot/gpt-6-luna:high"
+      designer: "github-copilot/gpt-6-luna:high"
+      advisor: "github-copilot/gpt-6-luna:medium"
+      vision: "github-copilot/gpt-6-luna:medium"
+      smol: "github-copilot/gpt-6-luna:off"
+      commit: "github-copilot/gpt-6-luna:minimal"
+      tiny: "github-copilot/gpt-6-luna:off"
   astra:
     modelRoles:
       default: "openai-codex/gpt-6-astra:low"
@@ -29,6 +41,18 @@ models:
       smol: "openai-codex/gpt-6-astra:low"
       commit: "openai-codex/gpt-6-astra:low"
       tiny: "openai-codex/gpt-6-astra:low"
+  astra-github:
+    modelRoles:
+      default: "github-copilot/gpt-6-astra:low"
+      plan: "github-copilot/gpt-6-astra:low"
+      slow: "github-copilot/gpt-6-astra:low"
+      task: "github-copilot/gpt-6-astra:low"
+      designer: "github-copilot/gpt-6-astra:low"
+      advisor: "github-copilot/gpt-6-astra:low"
+      vision: "github-copilot/gpt-6-astra:low"
+      smol: "github-copilot/gpt-6-astra:low"
+      commit: "github-copilot/gpt-6-astra:low"
+      tiny: "github-copilot/gpt-6-astra:low"
   sol:
     modelRoles:
       default: "openai-codex/gpt-6.1-sol:low"
@@ -41,6 +65,18 @@ models:
       smol: "openai-codex/gpt-6.1-sol:low"
       commit: "openai-codex/gpt-6.1-sol:low"
       tiny: "openai-codex/gpt-6.1-sol:low"
+  sol-github:
+    modelRoles:
+      default: "github-copilot/gpt-6.1-sol:low"
+      plan: "github-copilot/gpt-6.1-sol:low"
+      slow: "github-copilot/gpt-6.1-sol:low"
+      task: "github-copilot/gpt-6.1-sol:low"
+      designer: "github-copilot/gpt-6.1-sol:low"
+      advisor: "github-copilot/gpt-6.1-sol:low"
+      vision: "github-copilot/gpt-6.1-sol:low"
+      smol: "github-copilot/gpt-6.1-sol:low"
+      commit: "github-copilot/gpt-6.1-sol:low"
+      tiny: "github-copilot/gpt-6.1-sol:low"
   f2p:
     settings:
       tools:
@@ -96,6 +132,7 @@ global:
     - learn
     - developer-docs
     - arena
+    - task-context
   mcpServers:
     - context7:context7
     - github:github
@@ -234,6 +271,14 @@ types:
       - business-economics
       - domain-modeling
       - documentation-and-adrs
+      - documentation-review
+      - tutorial-authoring
+      - feature-design
+      - software-architecture
+      - spec-to-code-compliance
+      - writing-for-agents
+      - skill-creator
+      - impeccable
       - external-supply-chain-review
     commands: []
 

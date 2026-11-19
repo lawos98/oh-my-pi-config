@@ -1,0 +1,19 @@
+{
+  "name": "tutorial-authoring",
+  "reviewed_at": "2026-10-23",
+  "license": "CC-BY-SA-4.0",
+  "sources": [
+    {
+      "repository": "https://github.com/jrajasekera/diataxis-documentation",
+      "revision": "7345aa8ae02f7aa5e26eaf071e5d4b5c2dbb3de2",
+      "paths": ["SKILL.md", "assets/templates/tutorial.md", "references/document-testing.md", "LICENSE.md"],
+      "license": "CC-BY-SA-4.0",
+      "attribution": "jrajasekera/diataxis-documentation; Diátaxis by Daniele Procida",
+      "underlying_source": "https://github.com/evildmp/diataxis-documentation-framework"
+    }
+  ],
+  "changes": ["narrow tutorial/onboarding trigger", "OMP evidence and approval boundaries", "observed versus source-derived outputs", "no compulsory execution or retry loops", "no fictional runnable examples", "no extra reviewer-model loops"],
+  "runtime_dependencies": [],
+  "scripts_imported": false,
+  "verification_limits": "Passive authoring adaptation. No service tutorial was executed and no upstream runtime was admitted. Native discovery is not a learner-journey evaluation."
+}

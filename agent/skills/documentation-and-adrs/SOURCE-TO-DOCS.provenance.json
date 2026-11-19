@@ -1,0 +1,39 @@
+{
+  "file": "SOURCE-TO-DOCS.md",
+  "authorship": "Locally authored OMP workflow; conceptual research references only",
+  "reviewed_at": "2026-10-23",
+  "sources": [
+    {
+      "repository": "https://github.com/microsoft/skills",
+      "revision": "a779d00cf3749577a7777422ab6dee9e66dcb2e2",
+      "path": ".github/plugins/deep-wiki",
+      "license_declared": "MIT",
+      "ideas": ["source-backed page catalogue", "citations", "related-page navigation"]
+    },
+    {
+      "repository": "https://github.com/natsu1211/deepwiki-skill",
+      "revision": "887304e68ff3711a964bcb4b3f33e47ad53c4405",
+      "path": ".apm/skills/wiki/references/doc_update_policy.md",
+      "license_declared": "MIT",
+      "ideas": ["source-to-section mapping", "review baseline", "partial-update ownership"]
+    },
+    {
+      "repository": "https://github.com/wshobson/agents",
+      "revision": "0874a27b17a22e2b7c2e2bcd725768e0803cad06",
+      "path": "plugins/documentation-generation",
+      "license_declared": "MIT",
+      "ideas": ["reference and tutorial coverage", "API documentation coverage"]
+    },
+    {
+      "repository": "https://github.com/FSoft-AI4Code/CodeWiki",
+      "revision": "03d0a294ad58f3c878bd8aeb0ef5e95a2ff8c3ca",
+      "path": "skills/codewiki-wiki-generator/SKILL.md",
+      "license_declared": "MIT",
+      "ideas": ["leaf-first explanations", "overview synthesis"]
+    }
+  ],
+  "imported_upstream_code_or_text": false,
+  "runtime_dependencies_added": [],
+  "excluded": ["installers", "upstream agent definitions", "plugin runners", "extra MCP servers", "external source ingestion", "model-provider configuration", "prompt caches", "automatic instruction-file generation", "CI and deployment", "permission bypass", "automatic retries", "mandatory AUTOGEN markers"],
+  "verification_limits": "Research inspected source instructions and selected implementation. No upstream runtime was executed or admitted. Native local command discovery is verified separately; instruction readback does not prove end-to-end generated documentation quality."
+}

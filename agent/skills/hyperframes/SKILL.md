@@ -1,11 +1,13 @@
 ---
 name: hyperframes
-description: "Render local documentation videos when motion or sequence materially improves understanding, or when the user explicitly requests HyperFrames. Supports local MP4 rendering, HTML playback, static explanations, and Markdown thumbnail links. Never decorative video, cloud generation, or paid media."
+description: "Render local documentation videos when authorized motion or sequence materially improves understanding, or when explicitly requested. Handbook videos require an explicit user request. Supports local MP4 rendering, HTML playback, static explanations, and Markdown thumbnail links. Never decorative video, cloud generation, or paid media."
 ---
 
 # Documentation video with HyperFrames
 
 Use HyperFrames when the current task authorizes video and temporal order, concurrency, state transitions, or a walkthrough is materially clearer with motion. State the reason briefly. Explicit use/no-use overrides win. Do not add video for decoration or duplicate a sufficient static diagram. Ordinary explanations remain native Mermaid/SVG. Use Archify for requested interactive exploration.
+
+For service handbooks, follow `service-documentation`: video requires an explicit user request, even when motion could help. Keep still Archify diagrams as the default handbook media and respect existing repository no-video rules. This does not remove separately requested video workflows.
 
 Before approved execution, prepare dependencies from `runtime/package-lock.json`, provide local ffmpeg at `/usr/bin/ffmpeg`, and set `CHROME_PATH` to an approved absolute Chromium executable path. Dependencies, browsers and runtime state are not included in this public snapshot. Installation requires separate approval; this skill does not grant it.
 

@@ -12,7 +12,7 @@ For each behavioral claim, record the source path and symbol, configuration entr
 
 1. Inspect the project's existing documentation. Keep its structure and publishing process unless a separate workspace is approved.
 2. Write Markdown from the reviewed evidence. Explain the purpose, inputs, outputs, failure behavior, and owner where these are known.
-3. Add a static explanation first. Add an interactive diagram or video only when it helps readers understand the same facts.
+3. Keep a complete static explanation. For new handbooks without an existing diagram convention, use still Archify process/architecture diagrams with editable sources, previews and useful exploration. Add animation or video only on explicit request.
 4. Build and preview from the project's isolated environment. The authoring reference distributed with this workflow gives the commands.
 5. Review the generated site, including navigation, media controls, reduced-motion behavior, and any repository subpath.
 6. Publish only after separate approval of the destination and content. A successful local build is not permission to upload it.

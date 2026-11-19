@@ -48,9 +48,9 @@ composer:
   shape: band
   tokenRate: true
 theme:
-  dark: titanium
+  dark: titanium-ultraviolet
   light: obsidian
-setupVersion: 2
+setupVersion: 3
 omitThinking: true
 steeringMode: one-at-a-time
 tools:
@@ -96,6 +96,7 @@ statusLine:
     - cost
   rightSegments:
     - session_name
+  sessionAccent: false
 tui:
   textSizing: false
   tight: true
@@ -125,7 +126,7 @@ prewalk:
   enabled: false
 spelling:
   autocorrect: true
-  autocomplete: true
+  autocomplete: auto
   typoDetection: false
 startup:
   quiet: true
@@ -140,3 +141,7 @@ marketplace:
 generate_image:
   enabled: true
 externalThinking: false
+update:
+  auto: true
+browser:
+  relay: true

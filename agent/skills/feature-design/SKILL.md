@@ -1,6 +1,6 @@
 ---
 name: feature-design
-description: Design features, substantial solutions, and behavior changes through evidence-backed architecture assessment and brainstorming. Use when boundaries, data and failure flows, consistency, concurrency, maintainability, requirements, or competing approaches need clarification before implementation.
+description: Design features, substantial solutions, and behavior changes, or write requested specifications covering behavior and necessary design. Use when requirements, boundaries, data and failure flows, consistency, concurrency, maintainability, or competing approaches need clarification before implementation; not for documenting current behavior alone.
 license: MIT
 metadata:
   domain: workflow
@@ -50,9 +50,9 @@ Fold this assessment into the existing decision and confirmation flow. It does n
 
 ## 3. Ask frontier rounds
 
-Ask the whole current frontier in one round. Use structured choices when they represent the real options, recommend one answer for every question, and explain the material trade-off concisely.
+Inspect the current frontier, then ask exactly one unresolved decision at a time using the native form with a recommendation and material trade-offs. Skip decisions already settled by the request or evidence; do not ask the user to supply repository-discoverable facts.
 
-Do not ask a question whose answer depends on another unresolved question in the same round. Recompute the frontier after each response and continue until no material branch remains silently assumed.
+Do not ask a question whose answer depends on another unresolved decision. Recompute the frontier after each response and continue until no material branch remains silently assumed.
 
 For a complex or inherently visual decision, one focused question is acceptable. When prose cannot settle a concrete logic, state-model, or UI uncertainty, use the `prototype` skill under its approval and cleanup rules.
 
@@ -77,6 +77,6 @@ Ask the user to confirm that this is the shared understanding. Do not begin impl
 
 The default output is the confirmed conversation. Create a specification, Jira issue, implementation plan, ADR, or repository document only when the user requests that artifact.
 
-When a specification is requested, match the repository's existing convention. If none exists, include only the sections needed to preserve the confirmed behavior: outcome, scope, requirements, failure behavior, acceptance criteria, and non-goals. Do not add placeholders or implementation detail disguised as requirements.
+When a specification is requested, read [SPECIFICATIONS.md](./SPECIFICATIONS.md) and match the repository's existing convention. Default to layered, thorough behavior plus necessary design, with concrete acceptance scenarios and visible unresolved issues. Separate current behavior from intended requirements, and keep execution plans separate. Do not add placeholders or implementation detail disguised as requirements. Use `documentation-and-adrs` for durable writing and significant decisions, and `spec-to-code-compliance` for a bounded comparison with implementation, not as proof of approval.
 
 When implementation follows, hand the confirmed decisions to the normal OMP implementation workflow; this skill does not create a second implementation process.

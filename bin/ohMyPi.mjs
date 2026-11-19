@@ -81,6 +81,7 @@ settings/instructions apply per launch; MCP servers are filtered by exact name.
 Built-in commands, extension commands and bundled /init remain. Command and MCP
 exclusions are startup snapshots; restart after adding resources or changing projects.
 Skills are filtered by resolved name, not source. Other OMP options pass through.
+Browser relay is enabled by default; PI_BROWSER_RELAY=0 disables it for a launch.
 Explicit extension/profile/skill overrides are rejected; use plain omp for those.
 Native OMP options: omp --help`);
       return;
@@ -124,7 +125,7 @@ Native OMP options: omp --help`);
   const executable = Bun.which("omp");
   if (!executable) throw new Error("omp is not on PATH");
   // Use OMP's own discovery, including project and plugin commands, instead of duplicating it.
-  const packageRoot = resolve(dirname(realpathSync(executable)), "..");
+  const packageRoot = resolve(dirname(realpathSync(executable)), "../install/global/node_modules/@oh-my-pi/pi-coding-agent");
   const native = path => import(pathToFileURL(join(packageRoot, "src", path)).href);
   const { Settings } = await native("config/settings.ts");
   const { initializeWithSettings, loadCapability } = await native("discovery/index.ts");
@@ -237,7 +238,10 @@ Native OMP options: omp --help`);
       "--config", overlayPath, "--model", roles.default,
       "--extension", temporary,
       ...forwarded,
-    ], { stdin: "inherit", stdout: "inherit", stderr: "inherit" });
+    ], {
+      stdin: "inherit", stdout: "inherit", stderr: "inherit",
+      env: { ...process.env, PI_BROWSER_RELAY: process.env.PI_BROWSER_RELAY ?? "1" },
+    });
     process.exitCode = await child.exited;
   } finally {
     process.off("SIGINT", interrupt);

@@ -7,9 +7,9 @@ commands, skills, and pinned plugin metadata. This is configuration, not an OMP 
 ohMyPi -model=astra -type=research
 ```
 
-Models: `luna`, `astra`, `sol`, `f2p`. Profiles: `backend`, `frontend`, `ux`, `pm`,
-`research`. Each model preset keeps all configured roles on that model, including
-lightweight subagents. Explicit model overrides still take precedence.
+Models: `luna`, `astra`, `sol`, their `-github` variants, and `f2p`. Profiles:
+`backend`, `frontend`, `ux`, `pm`, `research`. Each model preset keeps all configured
+roles on that model, including lightweight subagents. Explicit model overrides win.
 
 ## Start here
 
@@ -28,7 +28,7 @@ Find available workflows in the [quick reference](docs/README.md):
 | [bin](bin/README.md) | The `ohMyPi` launcher and its prerequisites |
 | [profiles](profiles/README.md) | Model choices and per-profile skill, command, and MCP allowlists |
 | [agent](agent/README.md) | Native settings and shared engineering rules |
-| [commands](docs/COMMANDS.md) | Six named workflows such as PR review and developer documentation |
+| [commands](docs/COMMANDS.md) | Seven named workflows such as PR review, task context, and developer documentation |
 | [skills](agent/skills/README.md) | Task-specific guidance and supporting references |
 | [plugins](plugins/README.md) | Plugin versions, source pins, and preference files |
 | [packages](docs/PACKAGES.md) | Optional runtimes and external integrations |
@@ -42,6 +42,8 @@ Find available workflows in the [quick reference](docs/README.md):
   enabled; extra post-stop capture turns are disabled. Recalled text can enter
   a cloud model's context. Local storage does not mean offline processing.
 - Profiles filter available resources. They are not permission sandboxes.
+- Browser relay is enabled by default and can use your signed-in Chrome session.
+  Set `PI_BROWSER_RELAY=0` for a launch to disable it; do not assume an isolated browser.
 - Provider authentication, private MCP connections, local models, and executable
   dependencies need separate setup. Selecting a resource does not install it.
 - This repository excludes credentials, histories, memories, databases, caches,
