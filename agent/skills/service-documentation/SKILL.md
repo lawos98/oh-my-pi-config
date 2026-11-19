@@ -1,6 +1,6 @@
 ---
 name: service-documentation
-description: "Create or maintain local-first service documentation sites with Zensical and optional GitHub Pages, combining source-backed explanations, API references, images, interactive diagrams and useful video. Use for a service-docs portal or reusable documentation workflow, not ordinary README edits, standalone diagrams or prose-only reviews."
+description: "Create or maintain local-first service documentation sites and layered handbooks with Zensical and optional GitHub Pages, source-backed explanations, API references, Archify-first diagrams and charts. Handbook motion/video requires an explicit request. Not ordinary README edits, standalone diagrams or prose-only reviews."
 ---
 
 # Service documentation
@@ -13,21 +13,25 @@ Build documentation for developers and operators from actual service evidence. F
 2. Read `skill://documentation-and-adrs` for contracts/runbooks and `skill://simple-english` for reader-facing technical prose. For new portal UI or substantial usability changes use `skill://impeccable`; do not import its runtime or add a second design authority automatically.
 3. Separate implemented facts, intended contracts, illustrative examples and unknowns. Source-link consequential statements to the relevant version. An authored diagram or animation is not a measured trace. Never publish invented endpoints, timings, failure guarantees or a generic template as documentation of the service.
 
+For source-driven generation, regeneration, improvement or synchronization, follow `documentation-and-adrs` and its [source-to-documentation reference](../documentation-and-adrs/SOURCE-TO-DOCS.md). Reuse its page catalogue and source-to-section evidence across the site and editable visuals. `/developer-docs` owns invocation modes; this skill owns portal and media delivery, not a second generator or baseline tracker.
+
 ## Author the site
 
 For new-site configuration, media/API patterns and optional deployment, read [references/authoring.md](references/authoring.md). Inspect [provenance.json](provenance.json) before using the pinned dependency set; it records admission and verification limits.
 
 - Default workspace: `docs-site/` inside the selected service repository, unless its conventions say otherwise. Reuse an existing site rather than copying over it. The [templates](templates/) are a complete guide to this documentation workflow, not a service's content. Copy reviewed files without overwriting existing work, then replace the guide with real source-backed documentation before describing it as service documentation.
 - Keep Zensical configuration, Markdown, the dependency lock and original media sources in the project. Install the reviewed [requirements.lock](templates/requirements.lock) only after permission, into that project's own virtual environment. No global Python installation or automatic upgrades. Re-review unsupported platforms/new versions rather than silently weakening pins.
-- Organize around the reader's tasks: getting started, relevant architecture/flows, API/message reference and operational procedures. Do not create empty categories or placeholder pages merely to fill navigation.
+- Organize around the reader's tasks: orientation and learning routes, relevant architecture/flows, directly reachable API/message reference, development and operational procedures. Apply the layered quality guidance linked by `documentation-and-adrs`. Keep one canonical explanation, important failure paths, concrete examples and visible evidence limits. Do not create empty categories or placeholder pages merely to fill navigation.
 - Preserve the existing OpenAPI/AsyncAPI owner/generator. Render a release artifact; don't maintain a second independent endpoint list. API renderer adoption is separate from Zensical adoption. Default to read-only reference; request execution requires an explicitly approved sandbox, not production credentials or a public proxy.
 
 ## Select media by the question
 
-- Small relationship or layout: native Mermaid/SVG, without adding a runtime merely for decoration.
-- Explorable architecture/sequence: read `skill://archify` and use its installed adapter. Keep editable JSON, interactive HTML, PNG preview and an adjacent text explanation. Link standalone HTML first; embed only when it improves the reader task and the actual host permits it. Preserve keyboard access and static fallback.
+For handbook diagrams/charts, read [references/media.md](references/media.md) for source/export ownership, chart integrity, privacy, accessibility and host verification.
+
+- New handbook process/architecture diagrams: default to `skill://archify` and its installed adapter. Preserve an established repository convention. Keep editable JSON, interactive HTML, PNG preview and an adjacent searchable explanation. Link standalone HTML first; embed only when it improves the reader task and the actual host permits it. Preserve keyboard access and static fallback. Ordinary small inline explanations can stay native Mermaid/SVG.
+- Charts: distinguish qualitative judgments from measurements. Use a table or lightweight labelled plot where sufficient; measured charts retain data provenance, units, transformations and an accessible table. No new chart runtime is admitted by this skill.
 - UI procedure: existing browser capture against authorized local/demo data. Keep the capture scenario and service revision; a screenshot mask does not redact a trace or video.
-- Temporal order/concurrency/state change: read `skill://hyperframes` and use its installed local adapter when motion adds understanding or the user requests it. Keep its composition/assets and complete static explanation alongside playback HTML, MP4 and poster. Explicit no-video requests win. No autoplay; narration requires reviewed captions and transcript, not an unapproved TTS service.
+- Motion/video: require an explicit user request for handbook animation or video. If requested, read `skill://hyperframes` for video or `skill://archify` for trace motion. Keep editable sources and complete static explanations with generated artifacts. Existing no-video rules win. No autoplay; narration requires reviewed captions and transcript, not an unapproved TTS service.
 - Include media with page-relative URLs that work under both local hosting and a GitHub project subpath. Surround iframe/API content with searchable prose; do not assume the portal search indexes iframe internals. Generated HTML/PNG/MP4 are derivatives, not the only editable sources.
 
 ## Local preview and optional publication

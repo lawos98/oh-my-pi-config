@@ -43,7 +43,7 @@ Choose prompts that resemble how a user would actually ask; don't game the descr
 
 When a bounded model-backed probe is explicitly requested and available, use `completion` for a response-only probe or delegate a tool-using scenario to `task`. Use `eval` only for a small deterministic local check; it is a Python/JavaScript workspace, not a built-in skill-routing benchmark. If the active runtime cannot expose which skill was selected, report routing as unobservable rather than guessing.
 
-Before a model-backed check, record the exact OMP runtime/build and model/provider identifier from available session or installation metadata. If either is unavailable, record it as unknown; never infer versions from dates or fabricate metrics. Follow the repository's one-check limit: choose at most one narrow check for the change, shared with any agents, and stop on its first failure without repair, retry, or a second check. Do not launch repeated runs, optimization loops, baselines, benchmark suites, browser viewers, background shell jobs, external CLIs, installers, or dependencies.
+Before a model-backed check, record the exact OMP runtime/build and model/provider identifier from available session or installation metadata. If either is unavailable, record it as unknown; never infer versions from dates or fabricate metrics. Follow the shared execution policy for the narrow check and its bounded recovery allowance across all agents. Do not launch repeated optimization loops, baselines, benchmark suites, browser viewers, external CLIs, installers, or dependencies as an implicit part of skill authoring.
 
 ## Finish
 

@@ -14,7 +14,9 @@ Run these examples from the setup root. If you create an `ohMyPi` executable lin
 - Bun and `omp` on PATH.
 - The configured model provider and its private authentication.
 - Skills, plugins, and MCP integrations selected by the profile.
-- A compatible OMP installation: the launcher imports source modules from the installed package.
+- OMP 19.0.0 with the Bun global package layout: relative to the resolved `omp`
+  executable directory, source modules must exist under
+  `../install/global/node_modules/@oh-my-pi/pi-coding-agent/src`.
 
 ## Behavior
 
@@ -23,6 +25,10 @@ The launcher combines global and role-specific skill, command, and MCP names. Co
 Each launch uses temporary settings and a status extension. The launcher removes these temporary files on exit. Plain `omp` does not apply this launcher's role filtering.
 
 `--inspect` reports resource discovery without connecting MCP servers or starting a model session. It does not test authentication or interactive behavior. `--cwd` selects the project; `--config` adds a settings overlay. Use `--` before a prompt that resembles an option.
+
+Browser relay is enabled by default and may operate your signed-in Chrome session.
+Set `PI_BROWSER_RELAY=0 ohMyPi ...` to disable it for a launch. This is separate
+from skill, command, and MCP filtering.
 
 ## Limits
 

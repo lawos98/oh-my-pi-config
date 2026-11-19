@@ -4,7 +4,7 @@ This page describes documentation media, not a real service's architecture. A st
 
 ## Interactive diagrams
 
-Use the existing local Archify skill when readers need to explore a diagram. Read its schema and authoring contract before creating the editable JSON. Cite the evidence beside the diagram and label assumptions. Default to no animation.
+For new service handbooks without an existing convention, default process and architecture diagrams to the local Archify skill. Read its schema and authoring contract before creating editable JSON. Cite evidence beside the diagram, label assumptions, and keep the full explanation searchable outside the viewer. Default to no animation; handbook motion requires an explicit request.
 
 The installed adapter produces standalone HTML, a PNG preview, and a Markdown link fragment. Its local invocation is:
 
@@ -32,7 +32,7 @@ Only embed reviewed local HTML. Same-origin HTML can execute scripts with the si
 
 ## Video walkthroughs
 
-Use the existing HyperFrames skill when temporal order or concurrency adds useful information. State why motion helps. Its storyboard and still composition must explain every step without playback. Keep sources and assets local. Do not install a second runtime or use cloud rendering.
+Use the existing HyperFrames skill only when the user explicitly requests handbook video. Its storyboard and still composition must explain every step without playback. Keep sources and assets local. Preserve repository no-video rules; do not install a second runtime or use cloud rendering.
 
 ```sh
 node $HOME/.omp/agent/skills/hyperframes/render.mjs /absolute/path/composition /absolute/path/walkthrough.mp4
@@ -53,6 +53,10 @@ A direct video embed can use this pattern once the reviewed files exist:
 ```
 
 Do not add autoplay or looping. For narrated video, add reviewed captions with a `track` element and provide an equivalent transcript. Silent labelled steps still need the complete static explanation. The alternative must remain available outside the video element, not only as a browser fallback.
+
+## Charts
+
+Use a table or lightweight labelled plot for qualitative comparisons, explicitly identifying ratings and positions as judgments rather than measurements. For measured charts retain the source/date, units, population/time window, aggregation, missing-data handling, axis choices and an accessible underlying table. Keep editable source and reviewed data or a safe derivation alongside exports. Verify in the intended host, not only chat. No additional chart renderer is installed by this workflow.
 
 ## Paths and delivery
 

@@ -188,3 +188,29 @@ Ktor implementation and runtime troubleshooting are locally authored guidance ba
 - Existing MPL-2.0 and CC BY-SA obligations noted above still apply. This export does not resolve missing source notices or certify compliance.
 
 Public portability modifications replace personal paths, require explicit browser selection, remove unavailable company-skill references and omit a project-specific Penpot reference. Generated renders, dependencies, runtime state and private acceptance reports are excluded. Upstream originals and available licenses remain alongside adaptations.
+
+## Portable refresh: OMP 19.0.0
+
+### Documentation review
+
+Files: `agent/skills/documentation-review/`.
+
+This modified OMP adaptation combines Storybook's documentation-review guidance at revision `f64308bb3b1fc85acddd3b35b43bf8b9d87db823` (MIT, copyright (c) 2024 Storybook) and Cloudflare's Reviewing Docs guidance at revision `64c952815f4fd94e56827d63a08ce64298999579`. Cloudflare's repository documentation license is conservatively applied to the Markdown guidance: CC BY 4.0, attribution to Cloudflare contributors.
+
+The adaptation is distributed under CC BY 4.0. Its [license and attribution](agent/skills/documentation-review/LICENSE.md) preserve source links, modification details, the Storybook MIT notice and CC legal-code links; [provenance](agent/skills/documentation-review/provenance.json) records exact source paths. Preserve those notices. No upstream scripts or runtime are included; no endorsement is implied.
+
+### Tutorial authoring
+
+Files: `agent/skills/tutorial-authoring/`.
+
+Adapted from [jrajasekera/diataxis-documentation](https://github.com/jrajasekera/diataxis-documentation/tree/7345aa8ae02f7aa5e26eaf071e5d4b5c2dbb3de2), revision `7345aa8ae02f7aa5e26eaf071e5d4b5c2dbb3de2`, itself attributed to Diátaxis by Daniele Procida. The adaptation retains CC BY-SA 4.0 terms, attribution, modification notice and legal-code links in [LICENSE.md](agent/skills/tutorial-authoring/LICENSE.md), with exact source paths in [provenance.json](agent/skills/tutorial-authoring/provenance.json).
+
+Preserve attribution and distribute adaptations under the same or a compatible license as required by CC BY-SA 4.0. This applies to the skill adaptation, not automatically to independently authored service documentation or the entire repository. No upstream helpers, installer or site runtime are included; no endorsement is implied.
+
+### Source-to-documentation workflow
+
+`documentation-and-adrs` adds locally authored guidance and a [bounded research provenance record](agent/skills/documentation-and-adrs/SOURCE-TO-DOCS.provenance.json). Its pinned Microsoft Deep Wiki, natsu1211 DeepWiki, wshobson documentation-generation and FSoft CodeWiki sources are conceptual research references, not imported code, templates, agent definitions or instruction text. No upstream runtime, index, provider configuration or installer is included.
+
+### Omitted pending redistribution clearance
+
+`karpathy-guidelines` is deliberately not redistributed. The local adaptation cites `multica-ai/andrej-karpathy-skills` at revision `2c606141936f1eeef17fa3043a72095b4765b9c2`, whose recorded MIT declaration lacks a standalone license/copyright notice. The local provenance explicitly leaves redistribution clearance unresolved. This snapshot does not invent a notice or treat the declaration as clearance. Existing unresolved notices elsewhere in this document remain unresolved.

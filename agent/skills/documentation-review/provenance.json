@@ -1,0 +1,26 @@
+{
+  "name": "documentation-review",
+  "reviewed_at": "2026-10-23",
+  "license": "CC-BY-4.0",
+  "sources": [
+    {
+      "repository": "https://github.com/storybookjs/storybook",
+      "revision": "f64308bb3b1fc85acddd3b35b43bf8b9d87db823",
+      "paths": [".agents/skills/docs-review/SKILL.md", ".agents/skills/docs-review/references/docs-principles.md", ".agents/skills/docs-review/references/docs-strategy.md", ".agents/skills/docs-review/references/docs-antipatterns.md"],
+      "license": "MIT",
+      "attribution": "Copyright (c) 2024 Storybook"
+    },
+    {
+      "repository": "https://github.com/cloudflare/cloudflare-docs",
+      "revision": "64c952815f4fd94e56827d63a08ce64298999579",
+      "paths": [".agents/skills/contributing/references/reviewing-docs.md"],
+      "license": "CC-BY-4.0",
+      "license_basis": "Conservative application of repository documentation license to Markdown guidance; LICENSE-CODE is not used for this prose adaptation",
+      "attribution": "Cloudflare contributors"
+    }
+  ],
+  "changes": ["OMP-native skill and routing", "read-only default", "single existing review rather than additional reviewers", "source/contract/example distinctions", "no automatic GitHub posting or commits", "no upstream tooling, formatter or retry loop"],
+  "runtime_dependencies": [],
+  "scripts_imported": false,
+  "verification_limits": "Passive adaptation; native discovery does not establish quality of reviews on a real service. No upstream executable is admitted."
+}

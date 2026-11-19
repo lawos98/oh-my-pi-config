@@ -17,13 +17,25 @@ Use `--` before prompt text that resembles an option.
 | Alias | Provider/model | Reasoning |
 | --- | --- | --- |
 | `luna` | `openai-codex/gpt-6-luna` | Varies by role |
+| `luna-github` | `github-copilot/gpt-6-luna` | Varies by role |
 | `astra` | `openai-codex/gpt-6-astra` | Low for every role |
+| `astra-github` | `github-copilot/gpt-6-astra` | Low for every role |
 | `sol` | `openai-codex/gpt-6.1-sol` | Low for every role |
+| `sol-github` | `github-copilot/gpt-6.1-sol` | Low for every role |
 | `f2p` | `lm-studio/qwen3.6-uncensored` | No reasoning suffix configured |
 
 Every configured role uses its preset's model, including `task`, `smol`, `commit`,
 and `tiny`. Explicit model overrides still win. These names do not guarantee
 provider access, availability, pricing, or support for a reasoning level.
+
+The `-github` variants preserve the corresponding base preset's
+role and reasoning settings; only the provider changes. The unsuffixed presets
+continue to use OpenAI Codex, and the default remains `luna`.
+
+```sh
+ohMyPi -model=sol-github -type=backend
+ohMyPi -model=astra-github -type=research
+```
 
 ## Profiles
 
@@ -33,11 +45,15 @@ provider access, availability, pricing, or support for a reasoning level.
 | `frontend` | TypeScript, React, browser behavior, and interface implementation |
 | `ux` | Product design, accessibility, and design tooling |
 | `pm` | Requirements, customer evidence, and economics |
-| `research` | Cited research, media analysis, and authorized reverse engineering |
+| `research` | Cited research, technical documentation, specifications, ADRs, handbook design, media analysis, and authorized reverse engineering |
 
 Each type receives `global.skills`, `global.commands`, and `global.mcpServers`,
 then adds its own lists. Duplicate names are removed. Model and type are independent.
 See [commands](../docs/COMMANDS.md) for workflow behavior and availability.
+
+Research adds `documentation-review`, `tutorial-authoring`, `feature-design`, `software-architecture`, `spec-to-code-compliance`, `writing-for-agents`, `skill-creator`, and `impeccable` for the complete authoring workflow. `/developer-docs` uses the review specialist for audit/improve and tutorial authoring for hands-on learner journeys. It already inherits prose guidance, Archify, HyperFrames, service-documentation and `/developer-docs`, plus the configured public MCP selections. No new MCP connection or command is installed by choosing this profile.
+
+Request specifications and ADRs in natural language. Substantial documentation is layered and thorough; specifications cover behavior plus necessary design, with execution plans separate. New handbooks default to still Archify process/architecture diagrams unless the repository has another convention. Handbook animation/video requires an explicit request. Follow the [skill guide](../docs/SKILLS.md#documentation-and-agent-guidance) for ownership and supporting references. Update affected documentation with relevant changes and invoke audits when needed; no background checker or CI is added.
 
 ## Editing the catalog
 

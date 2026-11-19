@@ -6,7 +6,7 @@ This export contains configuration and skills, not a complete runtime installati
 
 | Component | Recorded source | Purpose |
 | --- | --- | --- |
-| [OMP](https://github.com/can1357/oh-my-pi) | Install separately | Terminal agent, tools, sessions, plugin discovery, and native subagents |
+| [OMP](https://github.com/can1357/oh-my-pi) | `19.0.0` snapshot; install separately | Terminal agent, tools, sessions, plugin discovery, and native subagents |
 | [Ponytail](https://github.com/DietrichGebert/ponytail/tree/2ed6c52c9d7e5e56942508591085fd45dea277d3) | `4.9.0`, Git revision `2ed6c52c9d7e5e56942508591085fd45dea277d3` | Minimal implementation and over-engineering review skills |
 | [GitHub MCP definition](https://github.com/anthropics/claude-plugins-official/tree/ea10b213686c90bb1984b2016937310e05336cf3/external_plugins/github) | `0.0.0+ea10b213686c` | Repository, issue, and pull-request operations |
 | [Context7 MCP definition](https://github.com/anthropics/claude-plugins-official/tree/ea10b213686c90bb1984b2016937310e05336cf3/external_plugins/context7) | `0.0.0+ea10b213686c` | Current library documentation |
